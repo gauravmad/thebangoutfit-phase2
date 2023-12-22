@@ -3,15 +3,15 @@ export default{
     title:'User Details',
     type:'document',
     fields:[
-        {
-            name:'userprofilepic',
-            title:'User Profile Image',
-            type:'image',
-            options:{
-                hotspot:true,
-                crop:true
-            }
-        },
+        // {
+        //     name: 'userprofilepic',
+        //     title: 'User Profile Image',
+        //     type: 'image',
+        //     options: {
+        //       hotspot: true,
+        //       crop: true
+        //     }
+        // },
         {
             name:'firstname',
             title:'First Name',
@@ -25,7 +25,7 @@ export default{
         {
             name:'mobilenumber',
             title:'Contact Number',
-            type:'number'
+            type:'string'
         },
         {
             name:'emailid',
@@ -40,7 +40,7 @@ export default{
         {
             name:'zipcode',
             title:'Pincode/ZipCode',
-            type:'number'
+            type:'string'
         },
         {
             name:'city',
