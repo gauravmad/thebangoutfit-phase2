@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function AccountDetails() {
 
@@ -7,7 +8,7 @@ export default function AccountDetails() {
     firstname:"",
     lastname:"",
     mobilenumber:"",
-    emailid:"",
+    alternatemailid:"",
     streetaddress:"",
     zipcode:"",
     city:"",
@@ -15,6 +16,9 @@ export default function AccountDetails() {
     country:"",
   })
     
+ 
+  const [submitted, setSubmitted] = useState(false);
+  
   const handleInputChange = (e) => {
     const {name,value}= e.target;
     setFormData({
@@ -23,33 +27,58 @@ export default function AccountDetails() {
     })
   }
 
-  const handleSaveDetails = async()=>{
+  const handleSaveDetails = async () => {
     try {
-        const response = await fetch('./api/saveAccountDetails',{
-            method:"POST",
-            headers:{
-                "Content-Type":'application/json',
-            },
-            body: JSON.stringify(formData),
+      console.log('Form Data:', formData); // Check if form data is logged correctly
+  
+      // Simulating an API call (replace this with your actual fetch logic)
+      const response = await fetch('./api/saveAccountDetails', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        console.log("User details saved successfully");
+        toast.success('User details saved successfully');
+        setFormData({ 
+          userprofilepic:"",
+          firstname:"",
+          lastname:"",
+          mobilenumber:"",
+          alternatemailid:"",
+          streetaddress:"",
+          zipcode:"",
+          city:"",
+          state:"",
+          country:"",
         });
 
-        if (response.ok){
-            console.log("User details saved successfully");
-        } else{
-            console.error("Failed to save user details");
-        }
-    } catch (error) {
-        console.error("Error saving user details:", error)
-    }
-  }
+        setSubmitted(true);
+        
+      } else {
+        console.error("Failed to save user details");
+        toast.error('Failed to save user details');
+      }
 
+    } catch (error) {
+      console.error("Error saving user details:", error)
+      toast.error('Failed to save user details');
+    }
+
+  }
+  
   return (
     <div className="my-[5vh]">
         
       <h2 className="text-center text-[3vh] my-[2vh] font-semibold">
         Account Details
       </h2>
+
       <div className="w-[60%] mx-auto">
+
         <div className="">
           <input
             type="text"
@@ -87,8 +116,8 @@ export default function AccountDetails() {
         <div>
           <input
             type="email"
-            name="emailid"
-            value={formData.emailid}
+            name="alternatemailid"
+            value={formData.alternatemailid}
             onChange={handleInputChange}
             className="bg-gray-100 w-full p-[1vh] border-2 border-gray-400 my-[1vh]"
             placeholder="Alternate Email (Optional)"
@@ -162,5 +191,6 @@ export default function AccountDetails() {
       </div>
 
     </div>
+
   );
 }

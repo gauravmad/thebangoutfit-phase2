@@ -1,5 +1,6 @@
 import React from "react";
 import { client } from "../lib/client";
+import { v4 as uuidv4 } from "uuid";
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 
 import { SignIn, AccountDetails, AccountSidebar } from "../components";
@@ -25,54 +26,43 @@ export default function myaccount({ userdetails }) {
     );
   }
 }
+
+
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
   let userdetails = null;
 
   if (session) {
-    const userquery = '*[_type == "userdetails"]';
-    userdetails = await client.fetch(userquery);
-
-    // Extract the user's image from the session
-    const { user } = session;
-    const userImage = user.image; // Update 'user.image' based on your session structure
-
-    // If the user image is available and not already saved in the database
-    if (
-      userImage &&
-      !userdetails.some((detail) => detail.userprofilepic === userImage)
-    ) {
-      try {
-        // Save the user's image to the 'userdetails' collection in Sanity
-        await client.create({
-          _type: "userdetails",
-          userprofilepic: userImage,
-          // Other fields if needed
-        });
-      } catch (error) {
-        console.error("Error saving user image:", error);
-      }
-    }
-
-    // Save email, first name, and last name if not already present
+    const user = session.user;
     const { email, name: fullName } = user;
-    const [firstName, lastName] = fullName.split(' '); // Splitting the full name into first and last name
+    const [firstName, lastName] = fullName.split(' ');
 
-    const userExists = userdetails.find(
-      (detail) => detail.emailid === email && detail.firstname === firstName && detail.lastname === lastName
-    );
+    const userQuery = '*[_type == "userdetails" && emailid == $email]';
+    userdetails = await client.fetch(userQuery, { email });
 
-    if (!userExists) {
+    if (userdetails.length > 0) {
+      // User exists, update details
+      try {
+        await client.patch(userdetails[0]._id).set({
+          firstname: firstName,
+          lastname: lastName,
+          // Update other fields here...
+        }).commit();
+      } catch (error) {
+        console.error("Error updating user details:", error);
+      }
+    } else {
+      // User doesn't exist, create new document
       try {
         await client.create({
           _type: "userdetails",
           emailid: email,
           firstname: firstName,
           lastname: lastName,
-          // Other fields if needed
+          // Other fields...
         });
       } catch (error) {
-        console.error("Error saving user details:", error);
+        console.error("Error creating user details:", error);
       }
     }
   }

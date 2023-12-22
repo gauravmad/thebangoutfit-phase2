@@ -3,6 +3,11 @@ export default{
     title:'User Details',
     type:'document',
     fields:[
+        {
+            name:'firstname',
+            title:'First Name',
+            type:'string',
+        },
         // {
         //     name: 'userprofilepic',
         //     title: 'User Profile Image',
@@ -12,11 +17,6 @@ export default{
         //       crop: true
         //     }
         // },
-        {
-            name:'firstname',
-            title:'First Name',
-            type:'string',
-        },
         {
             name:'lastname',
             title:'Last Name',
@@ -30,6 +30,11 @@ export default{
         {
             name:'emailid',
             title:'Email',
+            type:'string'
+        },
+        {
+            name:'alternatemailid',
+            title:'Alternate Email ID',
             type:'string'
         },
         {
