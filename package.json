@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.1",
     "@sanity/client": "^3.4.1",
     "@sanity/image-url": "^1.0.1",
+    "axios": "^1.6.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "next": "14.0.4",
