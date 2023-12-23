@@ -45,8 +45,8 @@ export default {
         type: 'string',
         options: {
           list: [
-            { title: 'Shirts', value: 'shirts' },
-            { title: 'Jeans', value: 'jeans' },
+            { title: 'Topwear', value: 'topwear' },
+            { title: 'Bottomwear', value: 'bottomwear' },
             { title: 'FootWear', value: 'footwear' },
           ],
         },
@@ -94,7 +94,7 @@ export default {
             { title: 'XXL', value: 'XXL' },
           ],
         },
-        hidden: ({ parent }) => parent.productType !== 'shirts',
+        hidden: ({ parent }) => parent.productType !== 'topwear',
       },
     {
         name: 'waistSize',
@@ -111,7 +111,7 @@ export default {
             { title: '40', value: '40' },
           ],
         },
-        hidden: ({ parent }) => parent.productType !== 'jeans',
+        hidden: ({ parent }) => parent.productType !== 'bottomwear',
       },
     {
         name:'footwearuksize',

@@ -4,6 +4,7 @@ import { toast, Toaster } from "react-hot-toast";
 export default function AccountDetails() {
 
   const [formData, setFormData] = useState({
+
     userprofilepic:"",
     firstname:"",
     lastname:"",
@@ -14,9 +15,9 @@ export default function AccountDetails() {
     city:"",
     state:"",
     country:"",
+
   })
     
- 
   const [submitted, setSubmitted] = useState(false);
   
   const handleInputChange = (e) => {
