@@ -20,7 +20,6 @@ export default{
                 maxLength:200,
                 slugify:input=>input.toLowerCase().replace(/\s+/g, '-').slice(0,200)
             },
-            // validation:Rule=>Rule.required(),
         },
         {
             name:'image',
@@ -35,6 +34,19 @@ export default{
             name:'trending',
             title:'Trending Detail',
             type:'string'
-        }
+        },
+        {
+            name:'gender',
+            title:'Gender',
+            type:'string',
+            options:{
+                list:[
+                    { title: 'Men', value: 'men' },
+                    { title: 'Women', value: 'women' },
+                    { title: 'Unisex', value: 'unisex' },
+                ]
+            },
+            validation: Rule => Rule.required(),
+        },
     ],
 };
