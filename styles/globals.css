@@ -3,19 +3,108 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    width: 1vh;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: rgb(210, 209, 209); 
-  }
+  width: 1vh;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #9c2bff, #000a3c); 
-    border-radius: 999px;
-  }
+::-webkit-scrollbar-track {
+  background-color: rgb(210, 209, 209);
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #8a2be2, #000000); 
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #9c2bff, #000a3c);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #8a2be2, #000000);
+}
+
+/* navbar css */
+.navbar {
+  background: linear-gradient(
+    90deg,
+    rgba(196, 100, 255, 0.15) 0%,
+    rgba(154, 243, 255, 0.15) 100%
+  );
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+}
+.signInButton {
+  display: none;
+}
+
+.profileIcon:hover + .signInButton {
+  display: block;
+}
+ 
+
+
+.navlink:hover {
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.756);
+  font-weight: 500;
+}
+.navlink:active {
+  color: purple;
+  font-weight: 500;
+  text-decoration: underline;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 80%;
+  z-index: 999;
+  background-color: rgb(245, 230, 243);
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-items: flex-start;
+}
+
+.sidebar li {
+  width: 100%;
+  margin: 15px;
+}
+.menu-button {
+  display: none;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%);
   }
-  
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.slideInRight {
+  animation: slideRight 0.5s ease-out;
+}
+
+.slideInLeft {
+  animation: slideLeft 0.5s ease-out;
+}
+
+@media (max-width: 800px) {
+  .hideOnMobile {
+    display: none;
+  }
+  .menu-button {
+    display: inline;
+  }
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+  }
+}
