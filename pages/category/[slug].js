@@ -28,8 +28,9 @@ export default function CategoryProduct({ products, category }) {
                   Rs. {product.finalproductprice}
                 </p>
                 <p className="text-red-500 text-[2.4vh] font-semibold">
+                Rs. &nbsp;
                   <span className="line-through">
-                    Rs. {product.cuttedproductprice}
+                    {product.cuttedproductprice}
                   </span>
                 </p>
               </div>
