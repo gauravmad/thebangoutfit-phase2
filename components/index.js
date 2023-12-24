@@ -6,4 +6,5 @@ export { default as AccountSidebar } from "./AuthComponents/AccountSidebar";
 export { default as AccountDetails } from "./AuthComponents/AccountDetails";
 export { default as Categories } from "./HomeSection/Categories";
 export { default as HomeBanner } from "./HomeSection/HomeBanner";
+export { default as Cart } from "./Cart/Cart"
 
