@@ -52,7 +52,7 @@ export const getServerSideProps = async (context) => {
         console.error("Error updating user details:", error);
       }
     } else {
-      // User doesn't exist, create new document
+      
       try {
         await client.create({
           _type: "userdetails",
