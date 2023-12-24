@@ -70,7 +70,7 @@ export default function Navbar() {
         <div className='flex flex-row items-center justify-end'>
           <div className='flex flex-row items-center'>
             {session ? (
-              <div onClick={handleProfileClick} className='profileIcon'>
+              <div onClick={handleProfileClick} className=''>
                 <img
                   src={session.user.image}
                   alt='Profile'

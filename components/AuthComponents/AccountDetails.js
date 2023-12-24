@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function AccountDetails() {
 
@@ -29,10 +29,17 @@ export default function AccountDetails() {
   }
 
   const handleSaveDetails = async () => {
+
+    const isFormEmpty= Object.values(formData).some(value=>value==="");
+    if(isFormEmpty){
+      console.log("Form is Empty. Please fill in all the details");
+      toast.error("Please Fill all the details.");
+      return;
+    }
+
     try {
-      console.log('Form Data:', formData); // Check if form data is logged correctly
+      console.log('Form Data:', formData); 
   
-      // Simulating an API call (replace this with your actual fetch logic)
       const response = await fetch('./api/saveAccountDetails', {
         method: 'POST',
         body: JSON.stringify(formData),
