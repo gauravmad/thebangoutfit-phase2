@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat&family=Poppins&family=RocknRoll+One&display=swap');
+body{
+  font-family: 'Marcellus', serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,9 +20,7 @@
   border-radius: 999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #8a2be2, #000000);
-}
+
 
 /* navbar css */
 .navbar {
@@ -27,15 +30,32 @@
     rgba(154, 243, 255, 0.15) 100%
   );
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  /* font-family: 'RocknRoll One', sans-serif; */
+
 }
-.signInButton {
-  display: none;
-}
+
 
 .profileIcon:hover + .signInButton {
   display: block;
-}
  
+}
+.triangle{
+  height: 20px;
+  width: 20px;
+  border-bottom: 10px solid yellow;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  top: -16%;
+  left: 44%;
+}
+.signInButton{
+  background-color: yellow;
+  padding: 25px 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 12%;
+  right: 5.5%;
+}
 
 
 .navlink:hover {
@@ -43,11 +63,7 @@
   background-color: rgba(255, 255, 255, 0.756);
   font-weight: 500;
 }
-.navlink:active {
-  color: purple;
-  font-weight: 500;
-  text-decoration: underline;
-}
+
 .sidebar {
   position: fixed;
   top: 0;
