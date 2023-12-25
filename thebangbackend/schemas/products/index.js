@@ -80,6 +80,7 @@ export default {
           { title: 'Men', value: 'men' },
           { title: 'Women', value: 'women' },
           { title: 'Unisex', value: 'unisex' },
+          { title: 'Kids', value: 'kids'}
         ]
       },
       validation: Rule => Rule.required(),
