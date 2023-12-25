@@ -44,22 +44,31 @@ export default function Navbar() {
     }, 500);
 
   }
+  const buttonDisplay = () => {
+    const signInButton = document.querySelector('.signInButton');
+    signInButton.classList.remove('hidden'); // Show the sign-in button
+  }
+  
+  const buttonHide = () => {
+    const signInButton = document.querySelector('.signInButton');
+    signInButton.classList.add('hidden'); // Hide the sign-in button
+  }
 
 
   return (
-    <div className=' pb-[2vh] w-full navbar'>
+    <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col'>
 
-      <div className='w-[90%] mx-auto mb-[1vh] flex flex-row justify-between items-center p-[1vh]'>
+      <div className='my-[1vh] flex flex-row justify-evenly items-center p-[1vh]'>
         
         <div>
-          <Link href="/"><img src='/logo.png' className='w-[10vh] shadow-2xlxl' alt='' /></Link>
+          <Link href="/"><img src='/logo.png' className='w-[7vh] md:w-[10vh]  shadow-2xlxl' alt='' /></Link>
         </div>
         
         <div className="relative ">
           <input
             type="text"
             placeholder="Search for the Clothing, Men, Women, Footwears etc"
-            className="text-[1vh] w-[50vw] h-[3vh]  md:text-[2vh] md:w-[60vw] md:h-[5vh] pl-[1vh] md:px-[2vh] border-gray-800 border-[0.2vh] bg-white text-gray-800 "
+            className="text-[1vh] w-[50vw] h-[3vh]  md:text-[2vh] md:w-[70vw] md:h-[5vh] pl-[1vh] md:px-[2vh] border-gray-800 border-[0.2vh] bg-white text-gray-800 "
           />
           <SearchIcon
             fontSize="small"
@@ -67,41 +76,47 @@ export default function Navbar() {
           />
         </div>
 
-        <div className='flex flex-row items-center justify-end'>
-          <div className='flex flex-row items-center'>
+        <div className='flex flex-row items-center  '>
+          <div className='flex  items-center  '>
             {session ? (
-              <div onClick={handleProfileClick} className=''>
+              <div onClick={handleProfileClick} >
                 <img
                   src={session.user.image}
                   alt='Profile'
                   className='profilepicicon w-[10vh] mr-[1.5vh] cursor-pointer '
                 />
               </div>
+
             ) : (
-              <Link href="/myaccount">
-                <AccountCircleIcon className='profilepicicon text-[8vh] mr-[1.5vh]' />
+              <Link href="/myaccount" className='profileIcon' >
+                <AccountCircleIcon className='profilepicicon text-[#431751] text-[6vh] md:text-[7vh] lg:text-[8vh] ' />
+                
               </Link>
             )}
-            <ShoppingBagIcon className=' text-[8vh] mr-[1.5vh]' />
-            <div className='signInButton'>
-              <button
+
+            <div onMouseEnter={buttonDisplay} onMouseLeave={buttonHide}  className='signInButton  hidden'>
+              <div className='absolute  triangle'></div>
+              <button 
                 onClick={handleSignInOut}
-                className={`p-[1.5vh] rounded-lg text-white text-[2.5vh] font-semibold ${session ? 'bg-red-600' : 'bg-purple-600'
+                className={`p-[1.5vh] rounded-lg w-full text-white text-[2.5vh] font-semibold ${session ? 'bg-red-600' : 'bg-purple-600'
                   } active:bg-purple-800`}
               >
                 {session ? 'Logout' : 'Sign In'}
               </button>
+              <p className='text-center'>New User! Please Sign in</p>
             </div>
           </div>
+
+          <ShoppingBagIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
         </div>
         
       </div>
 
 
-      <div>
-        <nav>
-          <ul className="sidebar" >
-            <li onClick={hideSidebar}><Link href="/" className="block text-left px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"  ><CloseIcon /></Link></li>
+      <div >
+        <nav >
+          <ul className="sidebar flex justify-evenly" >
+            <li onClick={hideSidebar} ><Link href="/" className="block text-right pr-[8vh] py-[0.5vh] text-[3vh] text-gray-700 "  ><CloseIcon /></Link></li>
             <li onClick={hideSidebar}><Link href="/" className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"  >HOME</Link></li>
             <li onClick={hideSidebar}><Link href="/aboutus" className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >ABOUT US</Link></li>
             <li onClick={hideSidebar}><Link href="/men" className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >MEN</Link></li>
@@ -110,13 +125,13 @@ export default function Navbar() {
             <li onClick={hideSidebar}><Link href="/contact" className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >CONTACT</Link></li>
           </ul>
           <ul className="flex justify-evenly " >
-            <li className="hideOnMobile"><Link href="/" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"  >HOME</Link></li>
+            <li className="hideOnMobile" ><Link href="/" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"  >HOME</Link></li>
             <li className="hideOnMobile"><Link href="/aboutus" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >ABOUT US</Link></li>
             <li className="hideOnMobile"><Link href="/men" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >MEN</Link></li>
             <li className="hideOnMobile"><Link href="/women" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >WOMEN</Link></li>
             <li className="hideOnMobile"><Link href="/kids" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >KIDS</Link></li>
             <li className="hideOnMobile"><Link href="/contact" className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink" >CONTACT</Link></li>
-            <li className="menu-button" onClick={showSidebar}><Link href="/" className="px-[1vh] py-[0.5vh]  text-gray-700 navlink" ><MenuIcon fontSize="large" className="text-[#692a91] " /></Link></li>
+            <li className="menu-button" onClick={showSidebar}><Link href="/" className="px-[1vh] py-[0.5vh]  text-gray-700 navlink" ><MenuIcon fontSize="large" className="text-[#431751] text-[6vh] " /></Link></li>
           </ul>
         </nav>
       </div>
