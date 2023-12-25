@@ -45,6 +45,15 @@ export default function Navbar() {
       sidebar.style.display = "none";
     }, 500);
   }
+  const buttonDisplay = () => {
+    const signInButton = document.querySelector('.signInButton');
+    signInButton.classList.remove('hidden'); // Show the sign-in button
+  }
+  
+  const buttonHide = () => {
+    const signInButton = document.querySelector('.signInButton');
+    signInButton.classList.add('hidden'); // Hide the sign-in button
+  }
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -59,12 +68,12 @@ export default function Navbar() {
 
 
   return (
-    <div className=" pb-[2vh] w-full navbar">
-      <div className="w-[90%] mx-auto mb-[1vh] flex flex-row justify-between items-center p-[1vh]">
+    <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col'>
+
+      <div className='my-[1vh] flex flex-row justify-evenly items-center p-[1vh]'>
+        
         <div>
-          <Link href="/">
-            <img src="/logo.png" className="w-[10vh] shadow-2xlxl" alt="" />
-          </Link>
+          <Link href="/"><img src='/logo.png' className='w-[7vh] md:w-[10vh]  shadow-2xlxl' alt='' /></Link>
         </div>
 
         <div className="relative ">
@@ -85,42 +94,47 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <div className="flex flex-row items-center justify-end">
-          <div className="flex flex-row items-center">
+        <div className='flex flex-row items-center  '>
+          <div className='flex  items-center  '>
             {session ? (
-              <div onClick={handleProfileClick} className="">
+              <div onClick={handleProfileClick} >
                 <img
                   src={session.user.image}
-                  alt="Profile"
-                  className="profilepicicon w-[10vh] mr-[1.5vh] cursor-pointer "
+                  alt='Profile'
+                  className='profilepicicon w-[10vh] mr-[1.5vh] cursor-pointer '
                 />
               </div>
+
             ) : (
-              <Link href="/myaccount">
-                <AccountCircleIcon className="profilepicicon text-[8vh] mr-[1.5vh]" />
+              <Link href="/myaccount" className='profileIcon' >
+                <AccountCircleIcon className='profilepicicon text-[#431751] text-[6vh] md:text-[7vh] lg:text-[8vh] ' />
+                
               </Link>
             )}
 
-            <div className="relative">
-              <ShoppingBagIcon className=" text-[8vh] mr-[1.5vh]"/>
+            <div onMouseEnter={buttonDisplay} onMouseLeave={buttonHide}  className='signInButton  hidden'>
+              <div className='absolute  triangle'></div>
+              <button 
+                onClick={handleSignInOut}
+                className={`p-[1.5vh] rounded-lg w-full text-white text-[2.5vh] font-semibold ${session ? 'bg-red-600' : 'bg-purple-600'
+                  } active:bg-purple-800`}
+              >
+                {session ? 'Logout' : 'Sign In'}
+              </button>
+              <p className='text-center'>New User! Please Sign in</p>
+            </div>
+          </div>
 
+          <div className="relative">
+            <ShoppingBagIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
+            
               <p className="bg-purple-500 text-white font-medium absolute -top-[1vh] -right-[1vh] p-[1vh] text-[2.3vh] rounded-full px-[1.5vh]">
                 20
               </p>
-            </div>
-
-            <div className="signInButton">
-              <button
-                onClick={handleSignInOut}
-                className={`p-[1.5vh] rounded-lg text-white text-[2.5vh] font-semibold ${
-                  session ? "bg-red-600" : "bg-purple-600"
-                } active:bg-purple-800`}
-              >
-                {session ? "Logout" : "Sign In"}
-              </button>
-            </div>
           </div>
+          
         </div>
+       
       </div>
 
       <div>
