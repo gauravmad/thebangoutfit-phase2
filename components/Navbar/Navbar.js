@@ -4,10 +4,12 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+// import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+
 
 export default function Navbar() {
 
@@ -45,6 +47,7 @@ export default function Navbar() {
       sidebar.style.display = "none";
     }, 500);
   }
+
   const buttonDisplay = () => {
     const signInButton = document.querySelector('.signInButton');
     signInButton.classList.remove('hidden'); // Show the sign-in button
@@ -67,7 +70,11 @@ export default function Navbar() {
   };
 
 
+  // Cart 
+  const {totalQuantities} = useStateContext();
+
   return (
+    <>
     <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col'>
 
       <div className='my-[1vh] flex flex-row justify-evenly items-center p-[1vh]'>
@@ -125,16 +132,18 @@ export default function Navbar() {
             </div>
           </div>
 
+          <Link href="/checkout">
           <div className="relative">
-            <ShoppingBagIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
+            <ShoppingCartIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
             
-              <p className="bg-purple-500 text-white font-medium absolute -top-[1vh] -right-[1vh] p-[1vh] text-[2.3vh] rounded-full px-[1.5vh]">
-                20
+              <p className="bg-purple-500 text-white font-medium absolute -top-[1.5vh] -right-[1.5vh] p-[1vh] text-[2vh] rounded-full px-[1.4vh]">
+                0
               </p>
           </div>
+          </Link>
           
         </div>
-       
+        
       </div>
 
       <div>
@@ -260,7 +269,10 @@ export default function Navbar() {
         </nav>
 
       </div>
+
     </div>
+
+    </>
   );
 }
 
