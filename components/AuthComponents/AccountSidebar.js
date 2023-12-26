@@ -7,7 +7,7 @@ export default function AccountSidebar() {
   const {user} = session;
 
   return (
-    <div>
+    <div className="w-[20vw] bg-fuchsia-800">
       <h2 className="text-[3vh] my-[5vh] text-center">My Account</h2>
       <div>
         <img className="w-[20vh]" src={user?.image} alt="profile" />

@@ -79,13 +79,12 @@ export default function AccountDetails() {
   }
   
   return (
-    <div className="my-[5vh]">
-        
-      <h2 className="text-center text-[3vh] my-[2vh] font-semibold">
+    <div className="my-[5vh] font-sans w-[50vw] border-gray-100 shadow-xl border-[1px] flex ">
+
+      <div className="w-full px-[8vh] py-[5vh] mx-auto">
+      <h2 className="text-[3vh]  font-semibold">
         Account Details
       </h2>
-
-      <div className="w-[60%] mx-auto">
 
         <div className="">
           <input
@@ -134,7 +133,7 @@ export default function AccountDetails() {
 
         <h2 className="text-[3vh] font-medium my-[2vh]">Billing Address</h2>
 
-        <div>
+        <div >
           <input
             type="text"
             name="streetaddress"
@@ -192,7 +191,7 @@ export default function AccountDetails() {
 
         <button  
             onClick={handleSaveDetails}
-            className="bg-purple-700 my-[1vh] px-[2vh] py-[1vh] font-medium text-white text-[2.5vh]">
+            className="bg-purple-700 w-[20vw] rounded-lg  mx-auto my-[1vh] px-[2vh] py-[1vh] font-medium text-white text-[2.5vh]">
           Save
         </button>
 
