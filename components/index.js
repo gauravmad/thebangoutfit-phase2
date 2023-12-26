@@ -7,9 +7,9 @@ export { default as AccountDetails } from "./AuthComponents/AccountDetails";
 export { default as Categories } from "./HomeSection/Categories";
 export { default as HomeBanner } from "./HomeSection/HomeBanner";
 export { default as ProductCard } from "./HomeSection/ProductCard";
-export { default as Cart } from "./CheckoutComponents/Cart";
-export { default as OrderDetails } from "./CheckoutComponents/OrderDetails";
-export { default as OrderStatus } from "./CheckoutComponents/OrderStatus";
+export { default as Cart} from "./CheckoutComponents/Cart";
+export { default as OrderDetails} from "./CheckoutComponents/OrderDetails";
+export { default as OrderStatus} from "./CheckoutComponents/OrderStatus";
 
 
 
