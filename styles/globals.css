@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat&family=Poppins&family=RocknRoll+One&display=swap');
 body{
-  font-family: 'Marcellus', serif;
+  font-family: 'RocknRoll One','Marcellus', serif;
 }
 
 @tailwind base;
@@ -42,19 +42,21 @@ body{
 .triangle{
   height: 20px;
   width: 20px;
-  border-bottom: 10px solid yellow;
+  border-bottom: 10px solid rgb(235, 234, 234);
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
   top: -16%;
   left: 44%;
 }
 .signInButton{
-  background-color: yellow;
+  background-color: rgb(235, 234, 234);
   padding: 25px 20px;
   border-radius: 10px;
   position: absolute;
-  top: 12%;
-  right: 5.5%;
+  top: 12.5%;
+  right: 4.5%;
+  box-shadow: 5px 5px  rgba(0, 0, 0, 0.4);
+  z-index: 999;
 }
 
 
