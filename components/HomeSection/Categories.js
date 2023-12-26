@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Categories({ category: { Title,slug, image, trending } }) {
   return (
     <Link href={`/category/${slug.current}`}>
-      <div className="flex flex-col w-[30vh] bg-white shadow-2xl p-[2vh]">
+      <div className="flex flex-col w-[30vh] bg-white shadow-2xl p-[2vh] ">
         <img
           src={urlFor(image)}
           className="w-[30vh] h-[35vh] object-cover"

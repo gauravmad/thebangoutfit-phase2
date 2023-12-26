@@ -68,19 +68,19 @@ export default function Navbar() {
 
 
   return (
-    <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col'>
+    <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col shadow-lg'>
 
       <div className='my-[1vh] flex flex-row justify-evenly items-center p-[1vh]'>
         
         <div>
-          <Link href="/"><img src='/logo.png' className='w-[7vh] md:w-[10vh]  shadow-2xlxl' alt='' /></Link>
+          <Link href="/"><img src='/logo.png' className='w-[6vh] md:w-[10vh]  md:mx-[1vh] shadow-2xlxl' alt='' /></Link>
         </div>
 
         <div className="relative ">
           <input
             type="text"
             placeholder="Search for the Clothing, Men, Women, Footwears etc"
-            className="text-[1vh] w-[50vw] h-[3vh]  md:text-[2vh] md:w-[60vw] md:h-[5vh] pl-[1vh] md:px-[2vh] border-gray-800 border-[0.2vh] bg-white text-gray-800"
+            className="text-[1vh] w-[52vw] h-[4vh] rounded-md mx-[1vh] md:text-[2.5vh] md:w-[65vw] md:h-[6vh] pl-[1vh] md:px-[2vh] border-gray-800 border-[0.2vh] bg-white text-gray-800"
             value={searchTerm}
             onChange={handleChange}
           />
@@ -89,7 +89,7 @@ export default function Navbar() {
           <SearchIcon
             onClick={handleSearch}
             fontSize="small"
-            className="absolute right-[0.5vh] top-[0.8vh]  md:right-[3vh] md:top-[1vh]"
+            className="absolute right-[2vh] text-gray-800 top-[0.8vh]  md:right-[3vh] md:top-[1vh]"
           />
           </Link>
         </div>
@@ -107,7 +107,7 @@ export default function Navbar() {
 
             ) : (
               <Link href="/myaccount" className='profileIcon' >
-                <AccountCircleIcon className='profilepicicon text-[#431751] text-[6vh] md:text-[7vh] lg:text-[8vh] ' />
+                <AccountCircleIcon className='profilepicicon text-[#431751] text-[5vh] md:text-[7vh] lg:text-[8vh] ' />
                 
               </Link>
             )}
@@ -126,9 +126,10 @@ export default function Navbar() {
           </div>
 
           <div className="relative">
-            <ShoppingBagIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
-            
-              <p className="bg-purple-500 text-white font-medium absolute -top-[1vh] -right-[1vh] p-[1vh] text-[2.3vh] rounded-full px-[1.5vh]">
+            <Link href='/cart'>
+            <ShoppingBagIcon className='text-[#431751] text-[5vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
+            </Link>
+              <p className="bg-purple-400 text-black absolute -top-[1vh] -right-[1vh] p-[0.5vh] text-[1.5vh] md:text-[2vh] font-semibold rounded-2xl ">
                 20
               </p>
           </div>
@@ -153,7 +154,7 @@ export default function Navbar() {
                 href="/"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Home
+                HOME
               </Link>
             </li>
             <li onClick={hideSidebar}>
@@ -161,7 +162,7 @@ export default function Navbar() {
                 href="/aboutus"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                About Us
+                ABOUT US
               </Link>
             </li>
             <li onClick={hideSidebar}>
@@ -169,7 +170,7 @@ export default function Navbar() {
                 href="/men"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Men
+                MEN
               </Link>
             </li>
             <li onClick={hideSidebar}>
@@ -177,7 +178,7 @@ export default function Navbar() {
                 href="/women"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Women
+                WOMEN
               </Link>
             </li>
             <li onClick={hideSidebar}>
@@ -185,7 +186,7 @@ export default function Navbar() {
                 href="/kids"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Kids
+                KIDS
               </Link>
             </li>
             <li onClick={hideSidebar}>
@@ -193,7 +194,7 @@ export default function Navbar() {
                 href="/contact"
                 className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Contact Us
+                CONTACT US
               </Link>
             </li>
           </ul>
@@ -205,7 +206,7 @@ export default function Navbar() {
                 href="/"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Home
+                HOME
               </Link>
             </li>
             <li className="hideOnMobile">
@@ -213,7 +214,7 @@ export default function Navbar() {
                 href="/aboutus"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                About Us
+                ABOUT US
               </Link>
             </li>
             <li className="hideOnMobile">
@@ -221,7 +222,7 @@ export default function Navbar() {
                 href="/men"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Men
+                MEN
               </Link>
             </li>
             <li className="hideOnMobile">
@@ -229,7 +230,7 @@ export default function Navbar() {
                 href="/women"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Women
+                WOMEN
               </Link>
             </li>
             <li className="hideOnMobile">
@@ -237,7 +238,7 @@ export default function Navbar() {
                 href="/kids"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Kids
+                KIDS
               </Link>
             </li>
             <li className="hideOnMobile">
@@ -245,7 +246,7 @@ export default function Navbar() {
                 href="/contact"
                 className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
               >
-                Contact
+                CONTACT US
               </Link>
             </li>
             <li className="menu-button" onClick={showSidebar}>
