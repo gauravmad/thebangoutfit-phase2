@@ -114,7 +114,7 @@ export default function Navbar() {
 
             ) : (
               <Link href="/myaccount" className='profileIcon' >
-                <AccountCircleIcon className='profilepicicon text-[#431751] text-[6vh] md:text-[7vh] lg:text-[8vh] ' />
+                <AccountCircleIcon className='profilepicicon text-[#431751] ' />
                 
               </Link>
             )}
@@ -134,7 +134,7 @@ export default function Navbar() {
 
           <Link href="/checkout">
           <div className="relative">
-            <ShoppingCartIcon className='text-[#431751] text-[6vh] md:ml-[5vh] md:text-[7vh] lg:text-[8vh]' />
+            <ShoppingCartIcon className='carticon text-[#431751]'/>
             
               <p className="bg-purple-500 text-white font-medium absolute -top-[1.5vh] -right-[1.5vh] p-[1vh] text-[2vh] rounded-full px-[1.4vh]">
                 0
