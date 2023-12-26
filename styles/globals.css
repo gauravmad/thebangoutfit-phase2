@@ -126,3 +126,19 @@ body{
     justify-items: center;
   }
 }
+
+.profilepicicon{
+  font-size: 8vh !important;
+}
+.carticon{
+  font-size: 8vh !important;
+}
+
+@media (max-width:768px) {
+  .carticon{
+    font-size: 6vh !important;
+  }
+  .profilepicicon{
+    font-size: 6vh !important;
+  }
+}
