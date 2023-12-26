@@ -13,9 +13,10 @@ export default function myaccount({ userdetails }) {
     return (
       <div className="w-[90%] mx-auto">
         <AccountSidebar />
-        {userdetails && (
+        {/* {userdetails && (
           <AccountDetails user={user} userdetails={userdetails} />
-        )}
+        )} */}
+        <AccountDetails user={user}/>
       </div>
     );
   } else {
@@ -26,7 +27,6 @@ export default function myaccount({ userdetails }) {
     );
   }
 }
-
 
 export const getServerSideProps = async (context) => {
   const session = await getSession(context);
