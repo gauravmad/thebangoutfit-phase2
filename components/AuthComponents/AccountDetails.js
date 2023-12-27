@@ -47,7 +47,7 @@ export default function AccountDetails() {
   };
 
   return (
-    <div className="my-[8vh] font-sans w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">
+    <div className="md:my-[8vh]  font-sans w-full md:w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">
       <div className="w-full px-[8vh]  mx-auto h-[60vh] overflow-y-scroll ">
         <div className="my-[8vh]">
           <h2 className="text-[3vh] mb-[3vh] font-semibold">Account Details</h2>

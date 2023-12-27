@@ -10,10 +10,10 @@ export default function AccountSidebar() {
   const { user } = session;
 
   return (
-    <div className="w-[30vw] my-[5vh] font-sans flex flex-col items-center">
-      <div className="flex flex-col justify-around text-gray-600">
+    <div className="md:w-[30vw] my-[5vh] font-sans flex flex-col w-full mx-auto ">
+      <div className="flex flex-col justify-around text-gray-600 mx-auto">
         <img
-          className="w-[25vh] mx-auto rounded-full"
+          className="w-[25vh] mb-[2vh] mx-auto rounded-full"
           src={user?.image}
           alt="profile"
         />
@@ -25,14 +25,15 @@ export default function AccountSidebar() {
         <Link href="" className="text-[3vh] font-medium my-[0.5vh]"><AddHomeIcon/>Billing Details</Link>
 
         <Link href="" className="text-[3vh] font-medium my-[0.5vh]"><ShoppingCartIcon/>My Orders</Link>
-      </div>
+      
 
       <button
         onClick={signOut}
-        className="my-[3vh] text-[2.5vh] w-[45%] rounded-md  p-[1.5vh] bg-gradient-to-r from-[#FF001F] to-black text-white"
+        className=" my-[3vh] text-[2.5vh]  md:w-[15vw] rounded-md  p-[1.5vh] bg-gradient-to-r from-[#FF001F] to-black text-white"
       >
         LogOut
       </button>
+      </div>
     </div>
   );
 }

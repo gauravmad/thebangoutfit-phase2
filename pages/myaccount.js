@@ -11,7 +11,7 @@ export default function myaccount({ userdetails }) {
   if (session) {
     const { user } = session;
     return (
-      <div className="w-[90%] flex justify-evenly mx-auto  ">
+      <div className="w-[90%] flex flex-col md:flex-row justify-evenly mx-auto  ">
         <AccountSidebar />
         {/* {userdetails && (
           <AccountDetails user={user} userdetails={userdetails} />

@@ -4,7 +4,6 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -107,7 +106,7 @@ export default function Navbar() {
                 <img
                   src={session.user.image}
                   alt='Profile'
-                  className='profilepicicon w-[10vh] mr-[1.5vh] cursor-pointer '
+                  className='profilepicicon w-[6vh] rounded-full md:w-[9vh] mx-[1.5vh] cursor-pointer '
                 />
               </div>
 
