@@ -20,15 +20,7 @@ body{
   border-radius: 999px;
 }
 
-.background{
-  background-image: url('./../public/images/bg.jpg');
-  background-size: 40%;
-  background-position: right;
-  background-repeat: no-repeat;
-  background-color: #f5dbe4;
-  
-  
-}
+
 
 /* navbar css */
 .navbar {
@@ -148,5 +140,38 @@ body{
   }
   .profilepicicon{
     font-size: 6vh !important;
+  }
+}
+
+/* Home Banner CSS */
+.background{
+  background-image: url('./../public/images/bg.jpg');
+  background-size: 40%;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-color: #f5dbe4;
+  
+  
+}
+
+
+/* About Us CSS */
+.aboutUsBackground{
+  background-image: url('./../public/images/aboutusbg.jpg');
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+
+}
+
+@media (max-width: 800px) {
+  .aboutUsBackground{
+    background-image: url('./../public/images/aboutusbg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+  
   }
 }
