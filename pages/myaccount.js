@@ -13,9 +13,6 @@ export default function myaccount({ userdetails }) {
     return (
       <div className="w-[90%] flex justify-evenly mx-auto  ">
         <AccountSidebar />
-        {/* {userdetails && (
-          <AccountDetails user={user} userdetails={userdetails} />
-        )} */}
         <AccountDetails user={user}/>
       </div>
     );

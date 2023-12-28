@@ -4,12 +4,10 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-
 
 export default function Navbar() {
 
@@ -136,7 +134,7 @@ export default function Navbar() {
             <ShoppingCartIcon className='carticon text-[#431751]'/>
             
               <p className="bg-purple-500 text-white font-medium absolute -top-[1.5vh] -right-[1.5vh] p-[1vh] text-[2vh] rounded-full px-[1.4vh]">
-                0
+                {totalQuantities}
               </p>
           </div>
           </Link>

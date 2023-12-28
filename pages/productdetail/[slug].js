@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { client, urlFor } from "../../lib/client";
+import {useStateContext } from "../../context/StateContext";
 
 export default function ProductDetail({ product }) {
   const {
@@ -18,6 +19,9 @@ export default function ProductDetail({ product }) {
 
   const [isAvailable, setIsAvailable] = useState(availability);
 
+  const {onAdd,qty}=useStateContext();
+  
+  
   return (
     <div className="w-[80%] mx-auto my-[6vh]">
       <h2 className="text-[3vh] font-medium text-center my-[3vh]">
@@ -124,14 +128,14 @@ export default function ProductDetail({ product }) {
           )}
 
           <div>
-            <button className="text-[3.5vh] mr-[2vh] text-white bg-purple-600 px-[4vh] py-[1.5vh]">Add to Cart</button>
-            <button className="text-[3.5vh] text-white bg-purple-600 px-[4vh] py-[1.5vh]">Buy Now</button>
+            <button onClick={()=>onAdd(product,qty)} className="text-[3.5vh] mr-[2vh] text-white bg-purple-600 px-[4vh] py-[1.5vh]">Add to Cart</button>
           </div>
 
         </div>
+
       </div>
 
-      {console.log(product)}
+      {/* {console.log(product)} */}
       <h3></h3>
     </div>
   );

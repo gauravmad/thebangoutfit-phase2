@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat&family=Poppins&family=RocknRoll+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=Montserrat&family=Poppins&family=Raleway&family=Roboto&family=RocknRoll+One&family=Source+Code+Pro&display=swap');
 body{
-  font-family: 'RocknRoll One','Marcellus', serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 @tailwind base;

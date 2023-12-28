@@ -25,16 +25,16 @@ export default function checkout() {
             )}
             <div className="flex flex-row items-center px-[2vh] bg-white">
               <p
-                className={`text-[3vh] flex flex-row  items-center justify-center font-semibold rounded-full ${
+                className={`text-[2.4vh] flex flex-row  items-center justify-center font-semibold rounded-full ${
                   activeStep > index
                     ? "bg-green-700 text-white"
                     : "bg-purple-700 text-white"
-                } w-[6vh] h-[6vh] mr-[1.5vh]`}
+                } w-[5vh] h-[5vh] mr-[1.5vh]`}
               >
                 {activeStep > index ? <span>&#10003;</span> : index + 1}
               </p>
               <h2
-                className={`text-[3vh] font-semibold ${
+                className={`text-[2.8vh] font-medium ${
                   activeStep > index ? "text-green-700" : "bg-white"
                 }`}
               >

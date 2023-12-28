@@ -2,7 +2,6 @@ import React from "react";
 import { client, urlFor } from "../lib/client";
 import { ProductCard } from "../components";
 
-
 export default function men({ products }) {
   return (
     <div className="w-[95vw] mx-auto mb-[10vh]">
