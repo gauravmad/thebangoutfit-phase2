@@ -26,7 +26,7 @@ body{
 .navbar {
   background: linear-gradient(
     90deg,
-    rgba(196, 100, 255, 0.15) 0%,
+    rgba(192, 92, 255, 0.15) 0%,
     rgba(154, 243, 255, 0.15) 100%
   );
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
@@ -141,4 +141,41 @@ body{
   .profilepicicon{
     font-size: 6vh !important;
   }
+}
+
+/* Home Banner CSS */
+.background{
+  background-image: url('./../public/images/bg.jpg');
+  background-size: 40%;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-color: #f5dbe4;
+  
+  
+}
+
+
+/* About Us CSS */
+.aboutUsBackground{
+  background-image: url('./../public/images/aboutusbg.jpg');
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+
+}
+
+@media (max-width: 800px) {
+  .aboutUsBackground{
+    background-image: url('./../public/images/aboutusbg.jpg');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+  
+  }
+}
+
+.savebtn{
+  background: linear-gradient(90deg, #9E00FF 0%, #000 100%);
 }

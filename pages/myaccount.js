@@ -1,6 +1,5 @@
 import React from "react";
 import { client } from "../lib/client";
-import { v4 as uuidv4 } from "uuid";
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 
 import { SignIn, AccountDetails, AccountSidebar } from "../components";
@@ -11,7 +10,7 @@ export default function myaccount({ userdetails }) {
   if (session) {
     const { user } = session;
     return (
-      <div className="w-[90%] flex justify-evenly mx-auto  ">
+      <div className="w-[90%] flex flex-col md:flex-row justify-evenly mx-auto  ">
         <AccountSidebar />
         <AccountDetails user={user}/>
       </div>

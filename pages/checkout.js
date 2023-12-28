@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Cart, OrderDetails, OrderStatus } from "../components";
+import { client } from "../lib/client";
+import { useSession, getSession, signIn, signOut } from "next-auth/react";
+
+import {SignIn} from "../components";
+
 
 export default function checkout() {
+
+  // User Authentication
+  const { data:session } = useSession();
+  
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
@@ -13,6 +22,12 @@ export default function checkout() {
   const handleStepChange = (index) => {
     setActiveStep(index);
   };
+
+  if(!session){
+    return(
+      <SignIn/>
+    )
+  }
 
   return (
     <div className="w-[90%] mx-auto mb-[4vh]">

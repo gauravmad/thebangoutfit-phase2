@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AccountDetails() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,8 @@ export default function AccountDetails() {
     country: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,7 +26,38 @@ export default function AccountDetails() {
     });
   };
 
-  const handleSaveDetails = async () => {
+
+  const validateForm = () => {
+    const requiredFields = [
+      "firstname",
+      "lastname",
+      "mobilenumber",
+      "streetaddress",
+      "zipcode",
+      "city",
+      "state",
+      "country",
+    ];
+
+    for (const field of requiredFields) {
+      if (!formData[field]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const handleSaveDetails = async (e) => {
+
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast.error("Please fill all the details");
+      return;
+    }
+
+    setLoading(true); 
+
     try {
       const response = await fetch("./api/saveAccountDetails", {
         method: "POST",
@@ -36,6 +70,18 @@ export default function AccountDetails() {
       if (response.ok) {
         console.log("User details saved successfully");
         toast.success("User details saved successfully");
+        setFormData({
+          firstname: "",
+          lastname: "",
+          mobilenumber: "",
+          emailid: "",
+          streetaddress: "",
+          zipcode: "",
+          city: "",
+          state: "",
+          country: ""
+        })
+
       } else {
         console.error("Failed to save user details");
         toast.error("Failed to save user details");
@@ -43,11 +89,13 @@ export default function AccountDetails() {
     } catch (error) {
       console.error("Error saving user details:", error);
       toast.error("Failed to save user details");
+    }finally{
+      setLoading(false)
     }
   };
 
   return (
-    <div className="my-[8vh] font-sans w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">
+    <div className="md:my-[8vh]  font-sans w-full md:w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">
       <div className="w-full px-[8vh]  mx-auto h-[60vh] overflow-y-scroll ">
         <div className="my-[8vh]">
           <h2 className="text-[3vh] mb-[3vh] font-semibold">Account Details</h2>
@@ -156,11 +204,20 @@ export default function AccountDetails() {
             />
           </div>
 
-          <button
+          
+           <button
             onClick={handleSaveDetails}
-            className="bg-purple-700 w-[20vw] rounded-lg  mx-auto my-[1vh] px-[2vh] py-[1vh] font-medium text-white text-[2.5vh]"
+            disabled={loading} // Disable the button while loading
+            className="savebtn bg-purple-700 w-[12vh] flex flex-row justify-center items-center font-semibold text-white rounded-lg text-[2.5vh]  py-[1.2vh] my-[1vh]"
           >
-            Save
+            {loading ? (
+              <div className="flex flex-row ">
+                <CircularProgress size={24} color="inherit" /> 
+
+              </div>
+            ) : (
+              "Save"
+            )}
           </button>
 
         </div>

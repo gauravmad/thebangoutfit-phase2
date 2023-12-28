@@ -105,7 +105,7 @@ export default function Navbar() {
                 <img
                   src={session.user.image}
                   alt='Profile'
-                  className='profilepicicon w-[10vh] mr-[1.5vh] cursor-pointer '
+                  className='profilepicicon w-[6vh] rounded-full md:w-[9vh] mx-[1.5vh] cursor-pointer '
                 />
               </div>
 
