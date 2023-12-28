@@ -144,6 +144,8 @@ export default {
         ]
       },
       hidden: ({parent})=> parent.productType !== 'footwear',
-    }
+    },
+    
   ],
+
 }

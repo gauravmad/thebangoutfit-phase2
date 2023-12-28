@@ -2,19 +2,18 @@ import React from "react";
 import { client, urlFor } from "../lib/client";
 import { ProductCard } from "../components";
 
-
 export default function men({ products }) {
   return (
-    <div className="w-[95vw] mx-auto mb-[10vh]">
+    <div className="w-[95vw] mx-auto mb-[10vh] ">
       <h2 className="text-[5vh] py-[5vh] mb-[5vh] text-center text-purple-800 border-b-2 font-medium font-sans">
         Men Section
       </h2>
       {console.log(products)}
 
-      <div className="flex flex-col md:flex-row ">
-        <div className="w-[20vw] h-[100vh] shadow-2xl ">
+      <div className="flex flex-col-reverse md:flex-row justify-evenly">
+        <div className="m-[5vh] md:m-[1vh] h-[100vh] shadow-2xl  ">
           <div className="bg-[#9E00FF1A] p-[2vh]"><h1 className="text-[3vh]">Category</h1></div>
-          <div>
+          <div className="pr-[2vh]">
             <h2 className="m-[2vh] text-[3vh] text-gray-700">Indian & Fusion Wear</h2>
             <ul className="px-[2vh]">
               <li className="mb-[1vh]"><label className=" text-[2.5vh] text-gray-500"><input type="checkbox" className="w-[3vh] h-[2.3vh] " />Kurtas</label></li>
@@ -43,18 +42,16 @@ export default function men({ products }) {
               <li className="mb-[1vh]"><label className=" text-[2.5vh] text-gray-500"><input type="checkbox" className="w-[3vh] h-[2.3vh] " />Sneakers</label></li>
             </ul>
           </div>
-
-
         </div>
 
-        <div className="w-[82%] ml-[5vh]">
-          <div className="h-[55%] overflow-scroll">
+        <div>
+          <div className="h-[50%] overflow-y-scroll ">
             {products.length === 0 ? (
               <div>
                 <h2>No Products Found</h2>
               </div>
             ) : (
-              <div className="products-container flex flex-row flex-wrap justify-center gap-[3vh]">
+              <div className="products-container flex flex-row flex-wrap w-full md:w-[72vw] justify-center my-[3vh] gap-[3vh]">
                 {products.map((product) => (
                   <ProductCard product={product} />
                 ))}

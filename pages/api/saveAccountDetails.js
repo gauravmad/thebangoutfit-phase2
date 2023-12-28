@@ -32,12 +32,8 @@ export default async function handler(req, res) {
       country,
     });
 
-    return res
-      .status(200)
-      .json({ message: "User details saved successfully", data: result });
+    return res.status(200).json({ message: "User details saved successfully", data: result });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Failed to save user details", error: error.message });
+    return res.status(500).json({ message: "Failed to save user details", error: error.message });
   }
 }

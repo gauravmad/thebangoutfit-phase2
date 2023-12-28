@@ -1,17 +1,20 @@
 import { urlFor, client } from "../lib/client";
 import { Categories, HomeBanner } from "../components";
+import React, { useEffect, useState } from 'react';
 
 export default function Home({ products, categorys, userdetails }) {
   return (
     <div>
       <HomeBanner />
 
-      <div className="w-[90%] mx-auto">
-        <h2 className="text-[3vh] font-semibold my-[2vh]">Explore Categories</h2>  
-        <div className="bg-green-100 flex flex-row flex-wrap gap-[1vh] p-[1vh] justify-around">
-        {categorys?.map((category) => (
-          <Categories key={category._id} category={category} />
-          ))}
+      <div className="w-[90%] mx-auto my-[3vh] ">
+        <h2 className="text-[3vh] font-semibold my-[2vh] ">Explore Categories</h2>
+        <div className=" my-[2vh]  overflow-auto bg-green-100">
+          <div className=" flex flex-row items-center gap-[2vh]  p-[2vh]">
+            {categorys?.map((category) => (
+              <Categories key={category._id} category={category} />
+            ))}
+          </div>
         </div>
       </div>
 

@@ -20,14 +20,18 @@ export default function women({products, categorys}) {
 }
 
 export const getServerSideProps = async () => {
-    const productquery = '*[_type == "product" && (gender == "women" || gender == "unisex")]';
-    const products = await client.fetch(productquery);
-  
-    const categoryquery = '*[_type == "category" && (gender == "women" || gender == "unisex")]';
-    const categorys = await client.fetch(categoryquery);
-  
-    return {
-      props: { products, categorys},
-    };
+  const productquery = '*[_type == "product" && (gender == "women" || gender == "unisex")]';
+  const products = await client.fetch(productquery);
+
+  const categoryquery = '*[_type == "category" && (gender == "women" || gender == "unisex")]';
+  const categorys = await client.fetch(categoryquery);
+
+  return {
+    props: { products, categorys},
+  };
 }
+
+
+
+
 
