@@ -181,3 +181,11 @@ body{
 .redbtn{
   background: linear-gradient(90deg, #ff0000 0%, #000 100%);
 }
+
+/* Navbar Responsive my code */
+@media (max-width:992px) {
+  .navlinks{
+    display: none;
+  }
+  
+}
