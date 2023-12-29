@@ -8,7 +8,6 @@ export default function men({ products }) {
       <h2 className="text-[5vh] py-[5vh] mb-[5vh] text-center text-purple-800 border-b-2 font-medium font-sans">
         Men Section
       </h2>
-      {console.log(products)}
 
       <div className="flex flex-col-reverse md:flex-row justify-evenly">
         <div className="m-[5vh] md:m-[1vh] h-[100vh] shadow-2xl  ">

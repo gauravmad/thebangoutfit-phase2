@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   const {
     firstname,
     lastname,
+    emailid,
     mobilenumber,
     alternatemailid,
     streetaddress,
@@ -19,21 +20,52 @@ export default async function handler(req, res) {
   } = req.body;
 
   try {
-    const result = await client.create({
-      _type: "userdetails",
-      firstname,
-      lastname,
-      mobilenumber,
-      alternatemailid,
-      streetaddress,
-      zipcode,
-      city,
-      state,
-      country,
-    });
+    const existingUser = await client.fetch(
+     ` *[_type == 'userdetails' && emailid == $emailid]`,
+      { emailid }
+    );
 
-    return res.status(200).json({ message: "User details saved successfully", data: result });
+    console.log('Existing user:', existingUser); // Log the existing user
+
+    if (existingUser.length > 0) {
+      const user = existingUser[0];
+
+      const result = await client
+        .patch(user._id)
+        .set({
+          mobilenumber,
+          alternatemailid,
+          streetaddress,
+          zipcode,
+          city,
+          state,
+          country,
+        })
+        .commit();
+
+      console.log('Patch result:', result); // Log the result of the patch query
+
+      return res.status(200).json({ message: "User details updated successfully", data: result });
+    } else {
+      const result = await client.create({
+        _type: "userdetails",
+        firstname,
+        lastname,
+        mobilenumber,
+        alternatemailid,
+        streetaddress,
+        zipcode,
+        city,
+        state,
+        country,
+      });
+
+      console.log('Create result:', result); // Log the result of the create query
+
+      return res.status(200).json({ message: "User details saved successfully", data: result });
+    }
   } catch (error) {
-    return res.status(500).json({ message: "Failed to save user details", error: error.message });
-  }
-}
+    console.error(error);
+    return res.status(500).json({ message: "Failed to save user details", error: error.message });
+  }
+};

@@ -187,22 +187,22 @@ export default function Navbar() {
           <FontAwesomeIcon className="text-[6vh] text-gray-700" icon="fa-solid fa-xmark" />
         </div>
         <ul className="flex flex-col justify-center text-gray-700 items-center gap-x-[3vh]">
-          <Link href="/">
+          <Link href="/" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium focus:underline">Home</li>
           </Link>
-          <Link href="/aboutus">
+          <Link href="/aboutus" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">About</li>
           </Link>
-          <Link href="/men">
+          <Link href="/men" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">Men</li>
           </Link>
-          <Link href="/women">
+          <Link href="/women" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">Women</li>
           </Link>
-          <Link href="/kids">
+          <Link href="/kids" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">Kids</li>
           </Link>
-          <Link href="/contact">
+          <Link href="/contact" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">Contact</li>
           </Link>
         </ul>
