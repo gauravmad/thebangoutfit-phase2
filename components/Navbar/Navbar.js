@@ -122,7 +122,7 @@ export default function Navbar() {
               )}
 
               <div
-                className={`absolute signHover w-[35vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
+                className={`absolute signHover w-[40vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
                   showSignInButton ? "shadow-black" : "hidden"
                 }`}
               >
