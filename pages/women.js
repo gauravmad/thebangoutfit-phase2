@@ -7,7 +7,6 @@ export default function women({products, categorys}) {
   return (
     <div>
         <h2 className='text-[4vh] font-medium my-[10vh] text-center'>WOMEN Section</h2>
-        {console.log(products)}
 
         <div className="products-container flex flex-row flex-wrap justify-center gap-[3vh]">
           {products.map((product) => (
