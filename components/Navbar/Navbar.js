@@ -1,19 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+// import SignIn from "../AuthComponents/SignIn";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useStateContext } from "../../context/StateContext";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Navbar() {
-
-  
   const { data: session } = useSession();
   const router = useRouter();
+
+  const [showSignInButton, setShowSignInButton] = useState(false);
 
   const handleSignInOut = async () => {
     if (session) {
@@ -31,245 +28,143 @@ export default function Navbar() {
     }
   };
 
-  function showSidebar() {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.style.display = "flex";
-    sidebar.classList.add("slideInRight");
-    sidebar.classList.remove("slideInLeft");
-  }
+  // const handleMouseEnter = () => {
+  //   setShowSignInButton(true);
+  // };
 
-  function hideSidebar() {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.classList.add("slideInLeft");
-    setTimeout(() => {
-      sidebar.style.display = "none";
-    }, 500);
-  }
+  // const handleMouseLeave = () => {
+  //   setShowSignInButton(false);
+  // };
 
-  const buttonDisplay = () => {
-    const signInButton = document.querySelector('.signInButton');
-    signInButton.classList.remove('hidden'); // Show the sign-in button
-  }
-  
-  const buttonHide = () => {
-    const signInButton = document.querySelector('.signInButton');
-    signInButton.classList.add('hidden'); // Hide the sign-in button
-  }
-
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearch = () => {
-    // Perform search logic or navigation
-    router.push(`/search?query=${searchTerm}`);
-  };
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-
-  // Cart 
-  const {totalQuantities} = useStateContext();
+  const { totalQuantities } = useStateContext();
 
   return (
-    <div className=' pb-[2vh] w-full navbar flex md:flex-col lg:flex-col shadow-lg'>
-
-      <div className='my-[1vh] flex flex-row justify-evenly items-center p-[1vh]'>
-        
+    <div className="navbar bg-white py-[1vh] shadow-md">
+      <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
+        {/* Logo section */}
         <div>
-          <Link href="/"><img src='/logo.png' className='w-[6vh] md:w-[10vh]  md:mx-[1vh] shadow-2xlxl' alt='' /></Link>
-        </div>
-
-        <div className="relative ">
-          <input
-            type="text"
-            placeholder="Search for the Clothing, Men, Women, Footwears etc"
-            className="text-[1vh] w-[52vw] h-[4vh] rounded-md mx-[1vh] md:text-[2.5vh] md:w-[65vw] md:h-[6vh] pl-[1vh] md:px-[2vh] border-gray-800 border-[0.2vh] bg-white text-gray-800"
-            value={searchTerm}
-            onChange={handleChange}
-          />
-
-          <Link href="/search">
-          <SearchIcon
-            onClick={handleSearch}
-            fontSize="small"
-            className="absolute right-[2vh] text-gray-800 top-[0.8vh]  md:right-[3vh] md:top-[1vh]"
-          />
+          <Link href="/">
+            <img
+              src="/logo.png"
+              className="w-[6vh] md:w-[8vh]  md:mx-[1vh] shadow-2xlxl"
+              alt=""
+            />
           </Link>
         </div>
 
-        <div className='flex flex-row items-center  '>
-          <div className='flex  items-center  '>
-            {session ? (
-              <div onClick={handleProfileClick} >
+        <div>
+          <ul className="flex flex-row gap-x-[3vh]">
+            <Link href="/">
+              <li className="text-[2.5vh] font-medium">Home</li>
+            </Link>
+            <Link href="/aboutus">
+              <li className="text-[2.5vh] font-medium">About</li>
+            </Link>
+            <Link href="/men">
+              <li className="text-[2.5vh] font-medium">Men</li>
+            </Link>
+            <Link href="/women">
+              <li className="text-[2.5vh] font-medium">Women</li>
+            </Link>
+            <Link href="/kids">
+              <li className="text-[2.5vh] font-medium">Kids</li>
+            </Link>
+            <Link href="/contact">
+              <li className="text-[2.5vh] font-medium">Contact</li>
+            </Link>
+          </ul>
+        </div>
+
+        <div className="flex flex-row justify-start items-center">
+          <div className="border-2  border-gray-600 p-[1vh] flex flex-row items-center mr-[3vh]">
+            <input
+              type="text"
+              placeholder="Search Clothing.."
+              className="focus:outline-none w-[20vh]"
+            />
+            <Link href="">
+              <FontAwesomeIcon
+                className="text-gray-600 text-[2.5vh]"
+                icon="fa-solid fa-magnifying-glass"
+              />
+            </Link>
+          </div>
+
+          <Link href="">
+            <div
+              className="mr-[2.5vh] relative"
+              
+            >
+              {!session?(
+
+              <FontAwesomeIcon
+                className="text-[3.7vh] text-gray-600"
+                icon="fa-solid fa-user"
+              />
+              ):(
                 <img
                   src={session.user.image}
-                  alt='Profile'
-                  className='profilepicicon w-[6vh] rounded-full md:w-[9vh] mx-[1.5vh] cursor-pointer '
+                  alt="Profile"
+                  className="w-[7vh] rounded-full"
                 />
+              )}
+
+              <div
+                className={`absolute signHover top-[8vh] w-[13vw] -right-[12vh] p-[2vh] shadow-2xl bg-white bottom-[0vh]${
+                  showSignInButton ? "shadow-2xl" : "hidden"
+                }`}
+              >
+                <div className="absolute text-white triangle"></div>
+                {!session?(
+
+                  <div>
+                    <button 
+                      onClick={signIn}
+                      className="bluebtn text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold">
+                      Sign In
+                    </button>
+                    <h2 className="text-center mt-[1vh]">Please Sign In!</h2>
+                  </div>
+                ):(
+                  <div>
+                    <Link href="/myaccount">
+                    <div onClick={handleProfileClick} className="text-center mt-[1vh] flex flex-row items-center mb-[1.5vh]">
+                      <FontAwesomeIcon
+                        className="text-[3vh] ml-[0.5vh] text-gray-600"
+                        icon="fa-solid fa-user"
+                      />
+                      <h2 className="text-[2.5vh] ml-[1.5vh]">My Account</h2>
+                    </div>
+
+                    </Link>
+                    <button 
+                      onClick={signOut}
+                      className="redbtn text-[2.5vh] w-full bg-red-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold">
+                      Logout
+                    </button>
+                  </div>
+                )}
+
               </div>
 
-            ) : (
-              <Link href="/myaccount" className='profileIcon' >
-                <AccountCircleIcon className='profilepicicon text-[#431751] text-[5vh] md:text-[7vh] lg:text-[8vh] ' />
-                
-              </Link>
-            )}
-
-            <div onMouseEnter={buttonDisplay} onMouseLeave={buttonHide}  className='signInButton  hidden'>
-              <div className='absolute  triangle'></div>
-              <button 
-                onClick={handleSignInOut}
-                className={`p-[1.5vh] rounded-lg w-full text-white text-[2.5vh] font-semibold ${session ? 'bg-red-600' : 'bg-purple-600'
-                  } active:bg-purple-800`}
-              >
-                {session ? 'Logout' : 'Sign In'}
-              </button>
-              <p className='text-center'>New User! Please Sign in</p>
             </div>
-          </div>
-
-          <Link href="/checkout">
-          <div className="relative">
-            <ShoppingCartIcon className='carticon text-[#431751]'/>
-            
-              <p className="bg-purple-500 text-white font-medium absolute -top-[1.5vh] -right-[1.5vh] p-[1vh] text-[2vh] rounded-full px-[1.4vh]">
-                {totalQuantities}
-              </p>
-          </div>
           </Link>
-          
+
+          <Link href="">
+            <div className=" relative">
+              <FontAwesomeIcon
+                className="text-[3.7vh] text-gray-600"
+                icon="fa-solid fa-cart-shopping"
+              />
+
+              <h1 className="bg-purple-700 w-[3.5vh] h-[3.5vh] rounded-full -top-[2vh] -right-[2vh] border-2 border-white text-[2.2vh] text-white absolute flex flex-row justify-center items-center">
+                {totalQuantities}
+              </h1>
+
+            </div>
+          </Link>
         </div>
-        
       </div>
-
-      <div>
-        <nav>
-          <ul className="sidebar">
-            <li onClick={hideSidebar}>
-              <Link
-                href="/"
-                className="block text-left px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                <CloseIcon />
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                HOME
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/aboutus"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                ABOUT US
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/men"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                MEN
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/women"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                WOMEN
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/kids"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                KIDS
-              </Link>
-            </li>
-            <li onClick={hideSidebar}>
-              <Link
-                href="/contact"
-                className="w-full block text-center px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                CONTACT US
-              </Link>
-            </li>
-          </ul>
-
-
-          <ul className="navbar-links flex justify-evenly ">
-            <li className="hideOnMobile">
-              <Link
-                href="/"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                HOME
-              </Link>
-            </li>
-            <li className="hideOnMobile">
-              <Link
-                href="/aboutus"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                ABOUT US
-              </Link>
-            </li>
-            <li className="hideOnMobile">
-              <Link
-                href="/men"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                MEN
-              </Link>
-            </li>
-            <li className="hideOnMobile">
-              <Link
-                href="/women"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                WOMEN
-              </Link>
-            </li>
-            <li className="hideOnMobile">
-              <Link
-                href="/kids"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                KIDS
-              </Link>
-            </li>
-            <li className="hideOnMobile">
-              <Link
-                href="/contact"
-                className="px-[1vh] py-[0.5vh] text-[3vh] text-gray-700 navlink"
-              >
-                CONTACT US
-              </Link>
-            </li>
-            <li className="menu-button" onClick={showSidebar}>
-              <Link
-                href="/"
-                className="px-[1vh] py-[0.5vh]  text-gray-700 navlink"
-              >
-                <MenuIcon fontSize="large" className="text-[#692a91] " />
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-      </div>
-
     </div>
-
-    
   );
 }
-

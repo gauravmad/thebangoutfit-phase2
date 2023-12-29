@@ -42,22 +42,16 @@ body{
 .triangle{
   height: 20px;
   width: 20px;
-  border-bottom: 10px solid rgb(235, 234, 234);
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
+  /* box-shadow: 1px 1px 10px black; */
+  border-bottom: 20px solid rgb(255, 255, 255);
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
   top: -16%;
   left: 44%;
 }
-.signInButton{
-  background-color: rgb(235, 234, 234);
-  padding: 25px 20px;
-  border-radius: 10px;
-  position: absolute;
-  top: 12.5%;
-  right: 4.5%;
-  box-shadow: 5px 5px  rgba(0, 0, 0, 0.4);
-  z-index: 999;
-}
+/* .signHover{
+  border: 2px solid rgb(207, 207, 207);
+} */
 
 
 .navlink:hover {
@@ -178,4 +172,12 @@ body{
 
 .savebtn{
   background: linear-gradient(90deg, #9E00FF 0%, #000 100%);
+}
+
+.bluebtn{
+  background: linear-gradient(90deg, #9E00FF 0%, #000 100%);
+}
+
+.redbtn{
+  background: linear-gradient(90deg, #ff0000 0%, #000 100%);
 }
