@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import SignIn from "../AuthComponents/SignIn";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useStateContext } from "../../context/StateContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Navbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
-
   const [showSignInButton, setShowSignInButton] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { totalQuantities } = useStateContext();
 
   const handleSignInOut = async () => {
     if (session) {
@@ -21,38 +23,47 @@ export default function Navbar() {
   };
 
   const handleProfileClick = () => {
-    if (session) {
-      router.push("/myaccount");
-    } else {
-      router.push("/signin");
-    }
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      if (session) {
+        router.push("/myaccount");
+      } else {
+        router.push("/signin");
+      }
+    }, 1000);
   };
 
-  // const handleMouseEnter = () => {
-  //   setShowSignInButton(true);
-  // };
+  useEffect(() => {
+    setShowSignInButton(!session);
+  }, [session]);
 
-  // const handleMouseLeave = () => {
-  //   setShowSignInButton(false);
-  // };
-
-  const { totalQuantities } = useStateContext();
+  if (status === "loading") {
+    // You might want to render a loading indicator while session status is loading
+    return <div><CircularProgress size={24} color="inherit" /> </div>;
+  }
 
   return (
     <div className="navbar bg-white py-[1vh] shadow-md">
       <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
         {/* Logo section */}
-        <div>
-          <Link href="/">
-            <img
-              src="/logo.png"
-              className="w-[6vh] md:w-[8vh]  md:mx-[1vh] shadow-2xlxl"
-              alt=""
-            />
-          </Link>
+        <div className="flex flex-row justify-start items-center">
+          <div className="md:hidden mr-[2vh]">
+            <FontAwesomeIcon className="text-[3.5vh]" icon="fa-solid fa-bars" />
+          </div>
+
+          <div>
+            <Link href="/">
+              <img
+                src="/logo.png"
+                className="w-[6vh] md:w-[8vh]  md:mx-[1vh] shadow-2xlxl"
+                alt=""
+              />
+            </Link>
+          </div>
         </div>
 
-        <div>
+        <div className="navlinks">
           <ul className="flex flex-row gap-x-[3vh]">
             <Link href="/">
               <li className="text-[2.5vh] font-medium">Home</li>
@@ -76,32 +87,28 @@ export default function Navbar() {
         </div>
 
         <div className="flex flex-row justify-start items-center">
-          <div className="border-2  border-gray-600 p-[1vh] flex flex-row items-center mr-[3vh]">
+          <div className="md:border-2 md:border-gray-600 p-[1vh] flex flex-row items-center mr-[1vh] md:mr-[3vh]">
             <input
               type="text"
               placeholder="Search Clothing.."
-              className="focus:outline-none w-[20vh]"
+              className="focus:outline-none hidden md:block md:w-[30vh] bg-transparent"
             />
             <Link href="">
               <FontAwesomeIcon
-                className="text-gray-600 text-[2.5vh]"
+                className="text-gray-600 text-[3vh] md:text-[2.5vh]"
                 icon="fa-solid fa-magnifying-glass"
               />
             </Link>
           </div>
 
           <Link href="">
-            <div
-              className="mr-[2.5vh] relative"
-              
-            >
-              {!session?(
-
-              <FontAwesomeIcon
-                className="text-[3.7vh] text-gray-600"
-                icon="fa-solid fa-user"
-              />
-              ):(
+            <div className="mr-[1.5vh] md:mr-[2.5vh] relative">
+              {!session ? (
+                <FontAwesomeIcon
+                  className="text-[3.7vh] text-gray-600"
+                  icon="fa-solid fa-user"
+                />
+              ) : (
                 <img
                   src={session.user.image}
                   alt="Profile"
@@ -110,43 +117,44 @@ export default function Navbar() {
               )}
 
               <div
-                className={`absolute signHover top-[8vh] w-[13vw] -right-[12vh] p-[2vh] shadow-2xl bg-white bottom-[0vh]${
-                  showSignInButton ? "shadow-2xl" : "hidden"
+                className={`absolute signHover w-[35vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
+                  showSignInButton ? "shadow-black" : "hidden"
                 }`}
               >
                 <div className="absolute text-white triangle"></div>
-                {!session?(
-
+                {!session ? (
                   <div>
-                    <button 
+                    <button
                       onClick={signIn}
-                      className="bluebtn text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold">
+                      className="bluebtn text-[2vh] md:text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold"
+                    >
                       Sign In
                     </button>
-                    <h2 className="text-center mt-[1vh]">Please Sign In!</h2>
+                    <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">Please Sign In!</h2>
                   </div>
-                ):(
+                ) : (
                   <div>
                     <Link href="/myaccount">
-                    <div onClick={handleProfileClick} className="text-center mt-[1vh] flex flex-row items-center mb-[1.5vh]">
-                      <FontAwesomeIcon
-                        className="text-[3vh] ml-[0.5vh] text-gray-600"
-                        icon="fa-solid fa-user"
-                      />
-                      <h2 className="text-[2.5vh] ml-[1.5vh]">My Account</h2>
-                    </div>
-
+                      <div
+                        onClick={handleProfileClick}
+                        className="text-center mt-[1vh] flex flex-row items-center mb-[1.5vh]"
+                      >
+                        <FontAwesomeIcon
+                          className="text-[2.5vh] md:text-[3vh] md:ml-[0.5vh] text-gray-600"
+                          icon="fa-solid fa-user"
+                        />
+                        <h2 className="text-[2vh] md:text-[2.5vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
+                      </div>
                     </Link>
-                    <button 
+                    <button
                       onClick={signOut}
-                      className="redbtn text-[2.5vh] w-full bg-red-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold">
+                      className="redbtn text-[2.2vh] md:text-[2.5vh] w-full bg-red-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold"
+                    >
                       Logout
                     </button>
                   </div>
                 )}
-
               </div>
-
             </div>
           </Link>
 
@@ -160,11 +168,39 @@ export default function Navbar() {
               <h1 className="bg-purple-700 w-[3.5vh] h-[3.5vh] rounded-full -top-[2vh] -right-[2vh] border-2 border-white text-[2.2vh] text-white absolute flex flex-row justify-center items-center">
                 {totalQuantities}
               </h1>
-
             </div>
           </Link>
+
         </div>
+
       </div>
+
+      <div className="absolute hidden flex flex-col justify-center items-center navlinks-mobile h-[100vh] w-[80%] top-0 bg-white">
+        <div className="absolute top-0 right-0 p-[4vh]">
+          <FontAwesomeIcon className="text-[6vh] text-gray-700" icon="fa-solid fa-xmark" />
+        </div>
+        <ul className="flex flex-col justify-center text-gray-700 items-center gap-x-[3vh]">
+          <Link href="/">
+            <li className="text-[3.5vh] my-[2vh] font-medium focus:underline">Home</li>
+          </Link>
+          <Link href="/aboutus">
+            <li className="text-[3.5vh] my-[2vh] font-medium">About</li>
+          </Link>
+          <Link href="/men">
+            <li className="text-[3.5vh] my-[2vh] font-medium">Men</li>
+          </Link>
+          <Link href="/women">
+            <li className="text-[3.5vh] my-[2vh] font-medium">Women</li>
+          </Link>
+          <Link href="/kids">
+            <li className="text-[3.5vh] my-[2vh] font-medium">Kids</li>
+          </Link>
+          <Link href="/contact">
+            <li className="text-[3.5vh] my-[2vh] font-medium">Contact</li>
+          </Link>
+        </ul>
+      </div>
+     
     </div>
   );
 }
