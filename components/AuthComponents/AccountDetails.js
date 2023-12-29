@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import CircularProgress from '@mui/material/CircularProgress';
-import {checkUserDetailsExistence} from "../../lib/client"
 
 export default function AccountDetails() {
   const [formData, setFormData] = useState({
@@ -94,7 +93,6 @@ export default function AccountDetails() {
       setLoading(false)
     }
   };
-
 
   return (
     <div className="md:my-[8vh]  font-sans w-full md:w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">

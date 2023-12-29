@@ -1,8 +1,12 @@
-import { urlFor, client } from "../lib/client";
+import { client } from "../lib/client";
 import { Categories, HomeBanner } from "../components";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSession, getSession } from "next-auth/react";
 
-export default function Home({ products, categorys, userdetails }) {
+export default function Home({ categorys }) {
+
+  const { data: session } = useSession();
+
   return (
     <div>
       <HomeBanner />
@@ -18,14 +22,11 @@ export default function Home({ products, categorys, userdetails }) {
         </div>
       </div>
 
-      {console.log(categorys)}
     </div>
   );
 }
 
-export const getServerSideProps = async () => {
-  const userquery = '*[_type == "userdetails"]';
-  const userdetails = await client.fetch(userquery);
+export const getServerSideProps = async (context) => {
 
   const productquery = '*[_type == "product"]';
   const products = await client.fetch(productquery);
@@ -33,7 +34,49 @@ export const getServerSideProps = async () => {
   const categoryquery = '*[_type == "category"]';
   const categorys = await client.fetch(categoryquery);
 
+  const session = await getSession(context);
+  let userdetails = null;
+
+  if (session) {
+    const user = session.user;
+    const { email, name: fullName } = user;
+    const [firstName, lastName] = fullName.split(' ');
+
+    const userQuery = '*[_type == "userdetails" && emailid == $email]';
+    userdetails = await client.fetch(userQuery, { email });
+
+    if (userdetails.length > 0) {
+      // User exists, update details
+      try {
+        await client.patch(userdetails[0]._id).set({
+          firstname: firstName,
+          lastname: lastName,
+          // Update other fields here...
+        }).commit();
+      } catch (error) {
+        console.error("Error updating user details:", error);
+      }
+    } else {
+      
+      try {
+        await client.create({
+          _type: "userdetails",
+          emailid: email,
+          firstname: firstName,
+          lastname: lastName,
+          // Other fields...
+        });
+      } catch (error) {
+        console.error("Error creating user details:", error);
+      }
+    }
+  }
+
   return {
-    props: { products, categorys, userdetails },
+    props: { 
+      products, 
+      categorys, 
+      userdetails:userdetails || null 
+    },
   };
 }
