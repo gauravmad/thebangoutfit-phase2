@@ -1,3 +1,5 @@
+import { validation } from "sanity";
+
 export default {
   name: 'userdetails',
   title: 'User Details',
@@ -7,6 +9,7 @@ export default {
       name: 'firstname',
       title: 'First Name',
       type: 'string',
+      validation:(Rule)=>Rule.required().unique(),
     },
     // {
     //     name: 'userprofilepic',
@@ -21,6 +24,7 @@ export default {
       name: 'lastname',
       title: 'Last Name',
       type: 'string',
+      validation: (Rule) => Rule.required().unique(),
     },
     {
       name: 'mobilenumber',

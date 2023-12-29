@@ -10,6 +10,3 @@ export { default as ProductCard } from "./HomeSection/ProductCard";
 export { default as Cart} from "./CheckoutComponents/Cart";
 export { default as OrderDetails} from "./CheckoutComponents/OrderDetails";
 export { default as OrderStatus} from "./CheckoutComponents/OrderStatus";
-
-
-
