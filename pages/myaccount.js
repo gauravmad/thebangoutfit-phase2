@@ -10,7 +10,7 @@ export default function myaccount({ userdetails }) {
   if (session) {
     const { user } = session;
     return (
-      <div className="w-[90%] flex flex-col md:flex-row justify-evenly mx-auto  ">
+      <div className="w-[90%] flex flex-col md:flex-row justify-evenly mx-auto  my-[10vh] ">
         <AccountSidebar />
         <AccountDetails user={user}/>
       </div>

@@ -4,13 +4,13 @@ import { urlFor } from "../../lib/client";
 
 export default function ProductCard({ product }) {
   return (
-    <div key={product._id} className="product-item w-[42vw] md:w-[34vh]  shadow-lg ">
+    <div key={product._id} className="product-item md:w-[15vw] w-[42vw] shadow-lg ">
       <Link href={`/productdetail/${product.slug.current}`}>
         <div className="bg-slate-100">
           <img
             src={urlFor(product.productimage).url()}
             alt={product.productitle}
-            className="w-[90vh] h-[32vh] md:h-[45vh] "
+            className="w-full h-[40vh] "
           />
           <div className="bg-white text-[#1E9700] font-sans text-center p-[0.8vh]">
               55% OFF
@@ -20,7 +20,7 @@ export default function ProductCard({ product }) {
 
           <div className="flex flex-col mx-[1.5vh] py-[1.5vh] ">
             
-            <h3 className=" font-medium text-gray-600 ">
+            <h3 className=" font-medium text-gray-600  ">
               {product.productitle}
             </h3>
             <div className="flex flex-row justify-between items-center mt-[1vh]">

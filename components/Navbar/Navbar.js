@@ -44,8 +44,8 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar bg-white py-[1vh] shadow-md">
-      <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
+    <div className="navbar bg-white py-[1vh] shadow-md fixed top-0 left-0 w-full ">
+      <div className="  flex flex-row justify-around items-center">
         {/* Logo section */}
         <div className="flex flex-row justify-start items-center">
           <div className="md:hidden mr-[2vh]">
@@ -86,8 +86,8 @@ export default function Navbar() {
           </ul>
         </div>
 
-        <div className="flex flex-row justify-start items-center">
-          <div className="md:border-2 md:border-gray-600 p-[1vh] flex flex-row items-center mr-[1vh] md:mr-[3vh]">
+        {/* Search Bar */}
+        <div className="md:border-2 md:w-[30%] md:border-gray-600 p-[1vh] flex flex-row items-center justify-between mr-[1vh] md:mr-[3vh]">
             <input
               type="text"
               placeholder="Search Clothing.."
@@ -100,6 +100,9 @@ export default function Navbar() {
               />
             </Link>
           </div>
+
+        <div className="flex flex-row justify-start items-center">
+          
 
           <Link href="">
             <div className="mr-[1.5vh] md:mr-[2.5vh] relative">
