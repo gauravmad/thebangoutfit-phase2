@@ -12,7 +12,12 @@ export default function Navbar() {
   const router = useRouter();
   const [showSignInButton, setShowSignInButton] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { totalQuantities } = useStateContext();
+
+  const toggleMobileNav=()=>{
+    setMobileNavOpen(!mobileNavOpen)
+  };
 
   const handleSignInOut = async () => {
     if (session) {
@@ -48,7 +53,7 @@ export default function Navbar() {
       <div className="w-[90%] mx-auto flex flex-row justify-between items-center">
         {/* Logo section */}
         <div className="flex flex-row justify-start items-center">
-          <div className="md:hidden mr-[2vh]">
+          <div onClick={toggleMobileNav} className="md:hidden mr-[2vh] cursor-pointer">
             <FontAwesomeIcon className="text-[3.5vh]" icon="fa-solid fa-bars" />
           </div>
 
@@ -175,8 +180,10 @@ export default function Navbar() {
 
       </div>
 
-      <div className="absolute hidden flex flex-col justify-center items-center navlinks-mobile h-[100vh] w-[80%] top-0 bg-white">
-        <div className="absolute top-0 right-0 p-[4vh]">
+      <div 
+        className={`navlinks-mobile md:hidden fixed z-50 h-[100vh] w-[80%] top-0 bg-white flex flex-col justify-center items-center transition-transform duration-500 ease-in-out  ${mobileNavOpen ? '-translate-x-[0vh]':'-translate-x-[100vw]'}`}
+      >
+        <div onClick={toggleMobileNav} className="absolute cursor-pointer top-0 right-0 p-[4vh]">
           <FontAwesomeIcon className="text-[6vh] text-gray-700" icon="fa-solid fa-xmark" />
         </div>
         <ul className="flex flex-col justify-center text-gray-700 items-center gap-x-[3vh]">
