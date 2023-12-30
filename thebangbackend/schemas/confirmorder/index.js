@@ -106,7 +106,24 @@ export default {
             type:'string'
           },
         ]
-      }
+      },
+      {
+        name:'deliverydate',
+        title:'Estimated Delivery Date',
+        type:'datetime'
+      },
+      {
+        name:'orderstatus',
+        title:'Order Status',
+        type:'string',
+        options:{
+          list:[
+            {title:'Processing', value:'processing'},
+            {title:'Dispatch', value:'dispatch'},
+            {title:'Delivered', value:'Delivered'},
+          ]
+        }
+      },
     ],
   };
 
