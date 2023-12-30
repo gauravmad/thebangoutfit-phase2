@@ -1,9 +1,20 @@
 import React from 'react'
 
-export default function OrderStatus() {
+export default function OrderStatus({orderConfirmed}) {
+  // const orderConfirmed = true;
   return (
-    <div>
-        <h1 className='text-[4vh] font-semibold my-[4vh] text-center'>Order Status</h1>
+    <div className='my-[10vh]'>
+
+      {orderConfirmed ? (
+        <div>
+          <p className='text-center text-[4vh] my-[6vh] font-semibold text-green-500'>Your Order is Confirmed happy??</p>
+        </div>
+      ):(
+        <div>
+          <p className='text-center text-[4vh] my-[6vh] font-semibold text-red-500'>Your Order is not Confirmed sad??</p>
+        </div>
+      )}
+      
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import SignIn from "../AuthComponents/SignIn";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -11,12 +10,35 @@ export default function Navbar() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [showSignInButton, setShowSignInButton] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { totalQuantities } = useStateContext();
 
   const toggleMobileNav=()=>{
     setMobileNavOpen(!mobileNavOpen)
+  };
+
+  useEffect(() => {
+    setShowSignInButton(true); 
+    const timeout = setTimeout(() => {
+      setShowSignInButton(false); 
+    }, 2000);
+
+    return () => clearTimeout(timeout); 
+  }, []);
+
+  const handleHoverIcon = () => {
+    setShowSignInButton(true);
+  };
+
+  const handleHoverDiv=()=>{
+    setIsHovered(true);
+  };
+
+  const handleLeaveDiv=()=>{
+    setIsHovered(false);
+    setShowSignInButton(false);
   };
 
   const handleSignInOut = async () => {
@@ -44,7 +66,6 @@ export default function Navbar() {
   }, [session]);
 
   if (status === "loading") {
-    // You might want to render a loading indicator while session status is loading
     return <div><CircularProgress size={24} color="inherit" /> </div>;
   }
 
@@ -115,23 +136,31 @@ export default function Navbar() {
                 <FontAwesomeIcon
                   className="text-[3.7vh] text-gray-600"
                   icon="fa-solid fa-user"
+                  onMouseEnter={handleHoverIcon}
+                  onMouseLeave={handleHoverIcon}
+                  onClick={handleHoverIcon}
                 />
               ) : (
                 <img
                   src={session.user.image}
                   alt="Profile"
                   className="w-[7vh] rounded-full"
+                  onMouseEnter={handleHoverIcon}
+                  onMouseLeave={handleHoverIcon}
+                  onClick={handleHoverIcon}
                 />
               )}
 
               <div
-                className={`absolute signHover w-[40vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
-                  showSignInButton ? "shadow-black" : "hidden"
+                className={`absolute z-[50] signHover w-[40vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] shadow-2xl bg-white bottom-[0vh] ${
+                  showSignInButton ? 'shadow-black' : 'hidden'
                 }`}
+                onMouseEnter={handleHoverDiv}
+                onMouseLeave={handleLeaveDiv}
               >
                 <div className="absolute text-white triangle"></div>
                 {!session ? (
-                  <div>
+                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
                     <button
                       onClick={signIn}
                       className="bluebtn text-[2vh] md:text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold"
@@ -141,7 +170,7 @@ export default function Navbar() {
                     <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">Please Sign In!</h2>
                   </div>
                 ) : (
-                  <div>
+                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
                     <Link href="/myaccount">
                       <div
                         onClick={handleProfileClick}
@@ -166,7 +195,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <Link href="">
+          <Link href="/checkout">
             <div className=" relative">
               <FontAwesomeIcon
                 className="text-[3.7vh] text-gray-600"

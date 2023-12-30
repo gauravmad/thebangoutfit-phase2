@@ -66,49 +66,6 @@ export default {
       title: 'Country',
       type: 'string',
     },
-    {
-      name: 'cartItems',
-      title: 'Cart Items',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'productName',
-              title: 'Product Name',
-              type: 'string',
-              readOnly: true,
-              options: {
-                source: 'productitle',
-              },
-            },
-            {
-              name: 'productImage',
-              title: 'Product Image',
-              type: 'image',
-              readOnly: true,
-              options: {
-                source: 'productimage',
-              },
-            },
-            {
-              name: 'productMRP',
-              title: 'Product MRP',
-              type: 'number',
-              readOnly: true,
-              options: {
-                source: 'finalproductprice',
-              },
-            },
-            {
-              name: 'productQuantity',
-              title: 'Product Quantity',
-              type: 'number',
-            },
-          ],
-        },
-      ],
-    },
+    
   ],
 }

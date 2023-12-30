@@ -14,37 +14,78 @@ export const StateContext=({children})=> {
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find((item) => item._id === product._id);
     
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+    const productPrice = parseFloat(product.finalproductprice); // Ensure the price is parsed as a float
+  
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + productPrice * quantity); // Use productPrice instead of product.price
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
     
-    if(checkProductInCart) {
+    if (checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if(cartProduct._id === product._id) return {
+        if (cartProduct._id === product._id) return {
           ...cartProduct,
           quantity: cartProduct.quantity + quantity
-        }
-      })
-
+        };
+        return cartProduct;
+      });
       setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
-      
       setCartItems([...cartItems, { ...product }]);
     }
+  
+    toast.success(`${quantity} ${product.productitle} added to the cart.`);
+  };
+  
+  const incQty = (product) => {
+    const updatedCartItems = cartItems.map((cartProduct) =>
+      cartProduct._id === product._id
+        ? { ...cartProduct, quantity: cartProduct.quantity + 1 }
+        : cartProduct
+    );
+    setCartItems(updatedCartItems);
+  
+    const updatedTotalPrice = updatedCartItems.reduce(
+      (total, item) => total + parseFloat(item.finalproductprice) * item.quantity,
+      0
+    );
+    setTotalPrice(updatedTotalPrice);
+  };
+  
+  const decQty = (product) => {
+    const updatedCartItems = cartItems.map((cartProduct) =>
+      cartProduct._id === product._id && cartProduct.quantity > 1
+        ? { ...cartProduct, quantity: cartProduct.quantity - 1 }
+        : cartProduct
+    );
+    setCartItems(updatedCartItems);
+  
+    const updatedTotalPrice = updatedCartItems.reduce(
+      (total, item) => total + parseFloat(item.finalproductprice) * item.quantity,
+      0
+    );
+    setTotalPrice(updatedTotalPrice);
+  };
+  
 
-    toast.success(`${qty} ${product.productitle} added to the cart.`);
-  } 
+  const clearCart=()=>{
+    setCartItems([]);
+    setTotalPrice(0);
+    setTotalQuantities(0);
+    setQty(1);
+    toast.success("Cart Cleared!")
+  };
 
-  const incQty=()=>{
-    setQty((prevQty)=>prevQty+1);
-  }
-
-  const decQty=()=>{
-    setQty((prevQty)=>{
-      if(prevQty-1<1) return;
-      return prevQty-1 ;
-    });
-  }
+  const removeProduct = (productId) => {
+    const updatedCartItems = cartItems.filter((item) => item._id !== productId);
+    setCartItems(updatedCartItems);
+  
+    const newTotalPrice = updatedCartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const newTotalQuantities = updatedCartItems.reduce((total, item) => total + item.quantity, 0);
+  
+    setTotalPrice(newTotalPrice);
+    setTotalQuantities(newTotalQuantities);
+  };
+  
 
   const value={
     searchTerm,
@@ -59,7 +100,9 @@ export const StateContext=({children})=> {
     setQty,
     incQty,
     decQty,
-    onAdd
+    onAdd,
+    clearCart,
+    removeProduct
   }
   
   return(
