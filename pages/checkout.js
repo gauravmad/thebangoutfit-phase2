@@ -60,8 +60,8 @@ export default function checkout() {
   }
 
   return (
-    <div className="w-[90%] mx-auto mb-[4vh]">
-      <div className="flex flex-row justify-between items-center relative mt-[5vh]">
+    <div className="w-[90%] mx-auto mb-[4vh] mt-[20vh]">
+      <div className="flex flex-row justify-between items-center relative my-[10vh] -z-50">
         {steps.map((step, index) => (
           <React.Fragment key={step.label}>
             {index !== 0 && (
