@@ -13,7 +13,7 @@ export default function Home({ categorys }) {
 
       <div className="w-[90%] mx-auto my-[3vh] ">
         <h2 className="text-[3vh] font-semibold my-[2vh] ">Explore Categories</h2>
-        <div className=" my-[2vh]  overflow-auto bg-green-100">
+        <div className=" my-[2vh]  overflow-auto bg-green-100 ">
           <div className=" flex flex-row items-center gap-[2vh]  p-[2vh]">
             {categorys?.map((category) => (
               <Categories key={category._id} category={category} />

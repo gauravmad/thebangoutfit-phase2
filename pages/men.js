@@ -2,36 +2,60 @@ import React, { useState } from "react";
 import { client, urlFor } from "../lib/client";
 import { ProductCard } from "../components";
 
-export default function men({ products }) {
-  return (
-    <div className="w-[90vw] mt-[8vh] md:w-full mx-auto  flex flex-col ">
+export default function Men({ products }) {
+  
 
+  return (
+    <div className=" mt-[8vh] w-full mx-auto  flex flex-col ">
       {/* Title Section */}
       <div>
-        <h2 className="md:text-[5vh] text-[3vh] py-[3vh] md:py-[5vh] text-center text-gray-700 border-b-2 font-medium font-poppins ">
+        <h2 className="md:text-[5vh] text-[3vh] py-[3vh] md:py-[5vh] text-center text-gray-700 font-medium font-poppins ">
           Men Section
         </h2>
       </div>
 
       {/* Category Section */}
       <div className="flex flex-col-reverse md:flex-row ">
-        <div className="pl-[5vh] w-full md:w-[26%] ">
-          <h1>CATEGORIES</h1>
-          <ul>
-            <li><input type="checkbox" />T-shirts</li>
-            <li><input type="checkbox" />Shirts</li>
-            <li><input type="checkbox" />Sweatshirts</li>
-            <li><input type="checkbox" />Kurtas</li>
-            <li><input type="checkbox" />Jackets</li>
-            <li><input type="checkbox" />Sweaters</li>
-            <li><input type="checkbox" />Blazers</li>
+        <div className="w-full md:w-[30%] border-t-[0.3vh] shadow-sm">
+          
+            <button className="w-full" >
+              <h1 className="text-[3vh] text-center p-[1.5vh] border-b-2 mb-[1vh]">
+                CATEGORIES
+              </h1>
+            </button>
+            
+              <div className="mx-auto">
+                {/* Dropdown content goes here */}
+                <ul className="flex flex-col gap-[2vh] pl-[3vh] text-[2.5vh] text-gray-600  ">
+            {[
+              "T-shirts",
+              "Shirts",
+              "Sweatshirts",
+              "Kurtas",
+              "Jackets",
+              "Sweaters",
+              "Blazers",
+              "Jeans",
+              "Trousers",
+              "Shorts",
+              "Track Pants",
+            ].map((category) => (
+              <li key={category}>
+                <input type="checkbox" />
+                &nbsp;{category}
+              </li>
+            ))}
           </ul>
-        </div>
+              </div>
+            
+          
 
+          
+        </div>
 
         {/* Product Display Section */}
         <div>
-          <div className=" md:mr-[5vh] ">
+          <div className="p-[2vh] border-[0.3vh] ">
             {products.length === 0 ? (
               <div>
                 <h2>No Products Found</h2>
