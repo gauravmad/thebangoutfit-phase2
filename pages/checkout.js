@@ -2,36 +2,65 @@ import React, { useState } from "react";
 import { Cart, OrderDetails, OrderStatus } from "../components";
 import { client } from "../lib/client";
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
-
-import {SignIn} from "../components";
+import { useRouter } from "next/router";
+import { SignIn } from "../components";
+import { useStateContext } from "../context/StateContext";
+import { toast } from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function checkout() {
-
   // User Authentication
-  const { data:session } = useSession();
-  
+  const { data: session } = useSession();
+  const { cartItems } = useStateContext();
+
   const [activeStep, setActiveStep] = useState(0);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [paymentFailed, setPaymentFailed] = useState(false);
 
   const steps = [
     { label: "Shopping Cart", component: <Cart /> },
     { label: "Order Details", component: <OrderDetails /> },
-    { label: "Order Status", component: <OrderStatus /> },
+    {
+      label: "Order Status",
+      component: <OrderStatus orderConfirmed={!paymentFailed} />,
+    },
   ];
 
+  const router = useRouter();
+
   const handleStepChange = (index) => {
+    if (index === activeStep + 1) {
+      if (index === 1 && cartItems.length === 0) {
+        toast.error("Your cart is empty. Please add items to proceed.");
+        return;
+      }
+    }
     setActiveStep(index);
   };
 
-  if(!session){
-    return(
-      <SignIn/>
-    )
+  const handlePayNow = () => {
+    if (activeStep === 1 && cartItems.length > 0) {
+      setPaymentCompleted(true); // Simulating successful payment completion
+      setActiveStep(2); // Set the active step to Order Status
+    } else {
+      setPaymentFailed(true);
+      toast.error("Your cart is empty or payment could not be processed.");
+      setActiveStep(2); // Set the active step to Order Status even on payment failure
+    }
+  };
+
+  const handleFailPayment = () => {
+    setPaymentFailed(true);
+    setActiveStep(2);
+  };
+
+  if (!session) {
+    return <SignIn />;
   }
 
   return (
     <div className="w-[90%] mx-auto mb-[4vh]">
-
       <div className="flex flex-row justify-between items-center relative mt-[5vh]">
         {steps.map((step, index) => (
           <React.Fragment key={step.label}>
@@ -41,16 +70,30 @@ export default function checkout() {
             <div className="flex flex-row items-center px-[2vh] bg-white">
               <p
                 className={`text-[2.4vh] flex flex-row  items-center justify-center font-semibold rounded-full ${
-                  activeStep > index
+                  activeStep > index || (paymentCompleted && index === 2)
                     ? "bg-green-700 text-white"
+                    : paymentFailed && index === 2
+                    ? "bg-red-500 text-white"
                     : "bg-purple-700 text-white"
                 } w-[5vh] h-[5vh] mr-[1.5vh]`}
               >
-                {activeStep > index ? <span>&#10003;</span> : index + 1}
+                {(activeStep > index || (paymentCompleted && index === 2)) &&
+                !paymentFailed ? (
+                  <span>&#10003;</span>
+                ) : paymentFailed && index === 2 ? (
+                  <span className="flex flex-row justify-center items-center">
+                    <FontAwesomeIcon className="text-white text-[3vh]" icon="fa-solid fa-xmark" />
+                  </span>
+                  // 
+                ) : (
+                  index + 1
+                )}
               </p>
               <h2
                 className={`text-[2.8vh] font-medium ${
-                  activeStep > index ? "text-green-700" : "bg-white"
+                  activeStep > index || (paymentCompleted && index === 2)
+                    ? "text-green-700"
+                    : "bg-white"
                 }`}
               >
                 {step.label}
@@ -63,20 +106,47 @@ export default function checkout() {
       <div>{steps[activeStep].component}</div>
 
       <div className="flex justify-end mt-4">
-        <button
-          onClick={() => handleStepChange(activeStep - 1)}
-          disabled={activeStep === 0}
-          className="bg-purple-700 text-white px-4 py-2 rounded-md mr-4"
-        >
-          Back
-        </button>
-        <button
-          onClick={() => handleStepChange(activeStep + 1)}
-          disabled={activeStep === steps.length - 1}
-          className="bg-purple-700 text-white px-4 py-2 rounded-md"
-        >
-          Next
-        </button>
+        {activeStep === 0 && (
+          <>
+            <button
+              onClick={() => handleStepChange(activeStep - 1)}
+              disabled={activeStep === 0}
+              className="bg-purple-700 text-white px-4 py-2 rounded-md mr-4"
+            >
+              Back
+            </button>
+            <button
+              onClick={() => handleStepChange(activeStep + 1)}
+              disabled={activeStep === steps.length - 1}
+              className="bg-purple-700 text-white px-4 py-2 rounded-md"
+            >
+              Next
+            </button>
+          </>
+        )}
+        {activeStep === 1 && (
+          <div>
+            <button
+              onClick={() => handleStepChange(activeStep - 1)}
+              disabled={activeStep === 0}
+              className="bg-purple-700 text-white px-4 py-2 rounded-md mr-4"
+            >
+              Back
+            </button>
+            <button
+              onClick={handlePayNow}
+              className="bg-purple-700 text-white px-4 py-2 rounded-md mr-4"
+            >
+              Pay Now Success
+            </button>
+            <button
+              onClick={handleFailPayment}
+              className="bg-purple-700 text-white px-4 py-2 rounded-md"
+            >
+              Fail Payment
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { client, urlFor } from "../../lib/client";
 import {useStateContext } from "../../context/StateContext";
+import { toast } from "react-hot-toast";
 
 export default function ProductDetail({ product }) {
   const {
@@ -19,7 +20,17 @@ export default function ProductDetail({ product }) {
 
   const [isAvailable, setIsAvailable] = useState(availability);
 
+  const [selectedSize, setSelectedSize] = useState(null);
+
   const {onAdd,qty}=useStateContext();
+
+  const addToCart=()=>{
+    if(!selectedSize){
+      toast.error('Please select size!')
+    }else{
+      onAdd({...product,selectedSize},qty);
+    }
+  };
   
   
   return (
@@ -87,8 +98,15 @@ export default function ProductDetail({ product }) {
               <h2 className="text-[3vh] my-[2vh]">Available in Sizes</h2>
               <div className="flex flex-row gap-[2vh]">
                 {size.map((s) => (
-                  <div key={s} className="mb-[2vh] flex flex-row">
-                    <button className="text-[3.5vh] w-[7vh] h-[7vh]  bg-purple-100 rounded-full shadow-2xl">
+                  <div 
+                    key={s} 
+                    className="mb-[2vh] flex flex-row"
+                    onClick={()=>setSelectedSize(s)}
+                  >
+                    <button 
+                      className={`text-[3.5vh] w-[7vh] h-[7vh]  bg-purple-100 rounded-full shadow-2xl ${selectedSize === s ? 'border border-purple-600':''}`}
+                      onClick={()=>setSelectedSize(s)}
+                    >
                       {s}
                     </button>
                   </div>
@@ -102,8 +120,15 @@ export default function ProductDetail({ product }) {
               <h2 className="text-[3vh] my-[2vh]">Available in Sizes</h2>
               <div className="flex flex-row gap-[2vh]">
                 {waistSize.map((w) => (
-                  <div key={w} className="mb-[2vh] flex flex-row">
-                    <button className="text-[3.5vh] w-[7vh] h-[7vh] bg-purple-100 rounded-full shadow-2xl">
+                  <div 
+                    key={w} 
+                    className="mb-[2vh] flex flex-row"
+                    onClick={()=>setSelectedSize(w)}
+                  >
+                    <button 
+                      className={`text-[3.5vh] w-[7vh] h-[7vh] bg-purple-100 rounded-full shadow-2xl ${selectedSize === w ? 'border border-purple-500':''}`}
+                      onClick={()=>setSelectedSize(w)}
+                    >
                       {w}
                     </button>
                   </div>
@@ -117,8 +142,15 @@ export default function ProductDetail({ product }) {
               <h2 className="text-[3vh] my-[2vh]">Available in Sizes (UK)</h2>
               <div className="flex flex-row gap-[2vh]">
                 {footwearuksize.map((f) => (
-                  <div key={f} className="mb-[2vh] flex flex-row">
-                    <button className="text-[3.5vh] w-[7vh] h-[7vh] bg-purple-100 rounded-full shadow-2xl">
+                  <div 
+                    key={f} 
+                    className="mb-[2vh] flex flex-row"
+                    onClick={()=>setSelectedSize(f)}
+                  >
+                    <button 
+                      className={`text-[3.5vh] w-[7vh] h-[7vh] bg-purple-100 rounded-full shadow-2xl ${selectedSize === f ? 'border border-purple-500':''}`}
+                      onClick={()=>setSelectedSize(f)}
+                    >
                       {f}
                     </button>
                   </div>
@@ -128,22 +160,24 @@ export default function ProductDetail({ product }) {
           )}
 
           <div>
-            <button onClick={()=>onAdd(product,qty)} className="text-[3.5vh] mr-[2vh] text-white bg-purple-600 px-[4vh] py-[1.5vh]">Add to Cart</button>
+            <button 
+              onClick={addToCart} 
+              className="text-[3.5vh] mr-[2vh] text-white bg-purple-600 px-[4vh] py-[1.5vh]"
+            >
+              Add to Cart
+            </button>
           </div>
 
         </div>
 
       </div>
 
-      {/* {console.log(product)} */}
-      <h3></h3>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
-  const { slug } = context.params; // Retrieve slug from the URL
-  // Fetch the product based on the slug
+  const { slug } = context.params;
   const productQuery = `*[_type == "product" && slug.current == $slug][0]`;
   const product = await client.fetch(productQuery, { slug });
 
