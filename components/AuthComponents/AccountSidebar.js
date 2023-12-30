@@ -11,9 +11,9 @@ export default function AccountSidebar() {
 
   return (
     <div className="md:w-[30vw] my-[5vh] font-sans flex flex-col w-full mx-auto ">
-      <div className="flex flex-col justify-around text-gray-600 mx-auto">
+      <div className="flex flex-col justify-around text-gray-600 mx-auto place-items-stretch md:items-start">
         <img
-          className="w-[25vh] mb-[2vh] rounded-full"
+          className="w-[25vh] mb-[2vh] rounded-full mx-auto md:mx-[0vh]"
           src={user?.image}
           alt="profile"
         />

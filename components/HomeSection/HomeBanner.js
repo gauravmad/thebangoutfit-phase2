@@ -2,7 +2,7 @@ import React from "react";
 
 export default function HomeBanner() {
   return (
-    <div className="background w-[90%] mx-auto md:h-[75vh] rounded-md shadow-md bg-pink-200 flex flex-col justify-center  my-[4vh]">
+    <div className="background w-[90%] mt-[15vh] mx-auto md:h-[75vh] rounded-md shadow-md bg-pink-200 flex flex-col justify-center  my-[4vh]">
       <div className="flex flex-col md:pl-[15vh] md:w-[55vw] w-[60vw] p-[2vh] justify-center items-start">
         <h1 className="md:text-[8vh] text-[3vh] font-bold text-pink-600 ">
           Discover Your Style
