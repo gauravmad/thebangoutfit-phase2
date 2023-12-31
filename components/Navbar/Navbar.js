@@ -142,23 +142,31 @@ export default function Navbar() {
                 <FontAwesomeIcon
                   className="text-[3.7vh] text-gray-600"
                   icon="fa-solid fa-user"
+                  onMouseEnter={handleHoverIcon}
+                  onMouseLeave={handleHoverIcon}
+                  onClick={handleHoverIcon}
                 />
               ) : (
                 <img
                   src={session.user.image}
                   alt="Profile"
                   className="w-[7vh] rounded-full"
+                  onMouseEnter={handleHoverIcon}
+                  onMouseLeave={handleHoverIcon}
+                  onClick={handleHoverIcon}
                 />
               )}
 
               <div
-                className={`absolute signHover w-[45vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
-                  showSignInButton ? "shadow-black" : "hidden"
+                className={`absolute z-[50] signHover w-[42vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] shadow-2xl bg-white bottom-[0vh] ${
+                  showSignInButton ? 'shadow-black' : 'hidden'
                 }`}
+                onMouseEnter={handleHoverDiv}
+                onMouseLeave={handleLeaveDiv}
               >
                 <div className="absolute text-white triangle"></div>
                 {!session ? (
-                  <div>
+                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
                     <button
                       onClick={signIn}
                       className="bluebtn text-[2vh] md:text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold"
@@ -168,7 +176,7 @@ export default function Navbar() {
                     <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">Please Sign In!</h2>
                   </div>
                 ) : (
-                  <div>
+                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
                     <Link href="/myaccount">
                       <div
                         onClick={handleProfileClick}
@@ -178,7 +186,7 @@ export default function Navbar() {
                           className="text-[2.2vh] md:text-[3vh] md:ml-[0.5vh] text-gray-600"
                           icon="fa-solid fa-user"
                         />
-                        <h2 className="text-[2vh] md:text-[2.3vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
+                        <h2 className="text-[2vh] md:text-[2.5vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
                       </div>
                     </Link>
                     <button
@@ -193,7 +201,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <Link href="">
+          <Link href="/checkout">
             <div className=" relative">
               <FontAwesomeIcon
                 className="text-[3.7vh] text-gray-600"
@@ -207,6 +215,7 @@ export default function Navbar() {
           </Link>
 
         </div>
+
 
       </div>
 
