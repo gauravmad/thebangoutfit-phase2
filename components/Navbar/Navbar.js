@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useStateContext } from "../../context/StateContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
@@ -15,28 +15,28 @@ export default function Navbar() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const { totalQuantities } = useStateContext();
 
-  const toggleMobileNav=()=>{
-    setMobileNavOpen(!mobileNavOpen)
+  const toggleMobileNav = () => {
+    setMobileNavOpen(!mobileNavOpen);
   };
 
   useEffect(() => {
-    setShowSignInButton(true); 
+    setShowSignInButton(true);
     const timeout = setTimeout(() => {
-      setShowSignInButton(false); 
+      setShowSignInButton(false);
     }, 2000);
 
-    return () => clearTimeout(timeout); 
+    return () => clearTimeout(timeout);
   }, []);
 
   const handleHoverIcon = () => {
     setShowSignInButton(true);
   };
 
-  const handleHoverDiv=()=>{
+  const handleHoverDiv = () => {
     setIsHovered(true);
   };
 
-  const handleLeaveDiv=()=>{
+  const handleLeaveDiv = () => {
     setIsHovered(false);
     setShowSignInButton(false);
   };
@@ -66,7 +66,11 @@ export default function Navbar() {
   }, [session]);
 
   if (status === "loading") {
-    return <div><CircularProgress size={24} color="inherit" /> </div>;
+    return (
+      <div>
+        <CircularProgress size={24} color="inherit" />{" "}
+      </div>
+    );
   }
 
   return (
@@ -74,7 +78,10 @@ export default function Navbar() {
       <div className="  flex flex-row justify-around items-center">
         {/* Logo section */}
         <div className="flex flex-row justify-start items-center">
-          <div onClick={toggleMobileNav} className="md:hidden mr-[2vh] cursor-pointer">
+          <div
+            onClick={toggleMobileNav}
+            className="md:hidden mr-[2vh] cursor-pointer"
+          >
             <FontAwesomeIcon className="text-[3.5vh]" icon="fa-solid fa-bars" />
           </div>
 
@@ -113,7 +120,9 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className="md:border-2 md:w-[30%] md:border-gray-600 p-[1vh] flex flex-row items-center justify-between mr-[1vh] md:mr-[3vh]">
+
+        <div className="flex flex-row justify-start items-center">
+          <div className="md:border-2 md:border-gray-600 p-[1vh] flex flex-row items-center mr-[1vh] md:mr-[3vh]">
             <input
               type="text"
               placeholder="Search Clothing.."
@@ -127,40 +136,29 @@ export default function Navbar() {
             </Link>
           </div>
 
-        <div className="flex flex-row justify-start items-center">
-          
-
           <Link href="">
             <div className="mr-[1.5vh] md:mr-[2.5vh] relative">
               {!session ? (
                 <FontAwesomeIcon
                   className="text-[3.7vh] text-gray-600"
                   icon="fa-solid fa-user"
-                  onMouseEnter={handleHoverIcon}
-                  onMouseLeave={handleHoverIcon}
-                  onClick={handleHoverIcon}
                 />
               ) : (
                 <img
                   src={session.user.image}
                   alt="Profile"
                   className="w-[7vh] rounded-full"
-                  onMouseEnter={handleHoverIcon}
-                  onMouseLeave={handleHoverIcon}
-                  onClick={handleHoverIcon}
                 />
               )}
 
               <div
-                className={`absolute z-[50] signHover w-[40vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] shadow-2xl bg-white bottom-[0vh] ${
-                  showSignInButton ? 'shadow-black' : 'hidden'
+                className={`absolute signHover w-[45vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] p-[1vh] md:p-[2vh] shadow-2xl bg-white bottom-[0vh]${
+                  showSignInButton ? "shadow-black" : "hidden"
                 }`}
-                onMouseEnter={handleHoverDiv}
-                onMouseLeave={handleLeaveDiv}
               >
                 <div className="absolute text-white triangle"></div>
                 {!session ? (
-                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
+                  <div>
                     <button
                       onClick={signIn}
                       className="bluebtn text-[2vh] md:text-[2.5vh] w-full bg-purple-500 p-[1vh] rounded-lg flex flex-row justify-center items-center text-white font-semibold"
@@ -170,17 +168,17 @@ export default function Navbar() {
                     <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">Please Sign In!</h2>
                   </div>
                 ) : (
-                  <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
+                  <div>
                     <Link href="/myaccount">
                       <div
                         onClick={handleProfileClick}
                         className="text-center mt-[1vh] flex flex-row items-center mb-[1.5vh]"
                       >
                         <FontAwesomeIcon
-                          className="text-[2.5vh] md:text-[3vh] md:ml-[0.5vh] text-gray-600"
+                          className="text-[2.2vh] md:text-[3vh] md:ml-[0.5vh] text-gray-600"
                           icon="fa-solid fa-user"
                         />
-                        <h2 className="text-[2vh] md:text-[2.5vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
+                        <h2 className="text-[2vh] md:text-[2.3vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
                       </div>
                     </Link>
                     <button
@@ -195,7 +193,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <Link href="/checkout">
+          <Link href="">
             <div className=" relative">
               <FontAwesomeIcon
                 className="text-[3.7vh] text-gray-600"
@@ -212,15 +210,25 @@ export default function Navbar() {
 
       </div>
 
-      <div 
-        className={`navlinks-mobile md:hidden fixed z-50 h-[100vh] w-[80%] top-0 bg-white flex flex-col justify-center items-center transition-transform duration-500 ease-in-out  ${mobileNavOpen ? '-translate-x-[0vh]':'-translate-x-[100vw]'}`}
+      <div
+        className={`navlinks-mobile md:hidden fixed z-50 h-[100vh] w-[80%] top-0 bg-white flex flex-col justify-center items-center transition-transform duration-500 ease-in-out  ${
+          mobileNavOpen ? "-translate-x-[0vh]" : "-translate-x-[100vw]"
+        }`}
       >
-        <div onClick={toggleMobileNav} className="absolute cursor-pointer top-0 right-0 p-[4vh]">
-          <FontAwesomeIcon className="text-[6vh] text-gray-700" icon="fa-solid fa-xmark" />
+        <div
+          onClick={toggleMobileNav}
+          className="absolute cursor-pointer top-0 right-0 p-[4vh]"
+        >
+          <FontAwesomeIcon
+            className="text-[6vh] text-gray-700"
+            icon="fa-solid fa-xmark"
+          />
         </div>
         <ul className="flex flex-col justify-center text-gray-700 items-center gap-x-[3vh]">
           <Link href="/" onClick={toggleMobileNav}>
-            <li className="text-[3.5vh] my-[2vh] font-medium focus:underline">Home</li>
+            <li className="text-[3.5vh] my-[2vh] font-medium focus:underline">
+              Home
+            </li>
           </Link>
           <Link href="/aboutus" onClick={toggleMobileNav}>
             <li className="text-[3.5vh] my-[2vh] font-medium">About</li>
@@ -239,7 +247,6 @@ export default function Navbar() {
           </Link>
         </ul>
       </div>
-     
     </div>
   );
 }
