@@ -35,11 +35,14 @@ export default {
       name: 'emailid',
       title: 'Email',
       type: 'string',
+      validation: (Rule) =>Rule.required().email({ message: 'Please enter a valid email address' }),
     },
     {
       name: 'alternatemailid',
       title: 'Alternate Email ID',
       type: 'string',
+      validation: (Rule) => Rule.required().email({ message: 'Please enter a valid email address' }),
+
     },
     {
       name: 'streetaddress',

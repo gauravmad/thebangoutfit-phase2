@@ -31,10 +31,36 @@ export const getServerSideProps = async (context) => {
   if (session) {
     const user = session.user;
     const { email, name: fullName } = user;
-    // const [firstName, lastName] = fullName.split(' ');
+    const [firstName, lastName] = fullName.split(' ');
 
     const userQuery = '*[_type == "userdetails" && emailid == $email]';
     userdetails = await client.fetch(userQuery, { email });
+
+    if (userdetails.length > 0) {
+      // User exists, update details
+      try {
+        await client.patch(userdetails[0]._id).set({
+          firstname: firstName,
+          lastname: lastName,
+          // Update other fields here...
+        }).commit();
+      } catch (error) {
+        console.error("Error updating user details:", error);
+      }
+    } else {
+      
+      try {
+        await client.create({
+          _type: "userdetails",
+          emailid: email,
+          firstname: firstName,
+          lastname: lastName,
+          // Other fields...
+        });
+      } catch (error) {
+        console.error("Error creating user details:", error);
+      }
+    }
   }
 
   return {

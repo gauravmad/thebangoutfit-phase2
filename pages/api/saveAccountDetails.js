@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { client } from "../../lib/client";
 
 export default async function handler(req, res) {
@@ -21,11 +20,11 @@ export default async function handler(req, res) {
 
   try {
     const existingUser = await client.fetch(
-     ` *[_type == 'userdetails' && emailid == $emailid]`,
+      ` *[_type == 'userdetails' && emailid == $emailid]`,
       { emailid }
     );
 
-    console.log('Existing user:', existingUser); // Log the existing user
+    console.log('Existing user:', existingUser);
 
     if (existingUser.length > 0) {
       const user = existingUser[0];
@@ -33,6 +32,8 @@ export default async function handler(req, res) {
       const result = await client
         .patch(user._id)
         .set({
+          firstname,
+          lastname,
           mobilenumber,
           alternatemailid,
           streetaddress,
@@ -43,12 +44,12 @@ export default async function handler(req, res) {
         })
         .commit();
 
-      console.log('Patch result:', result); // Log the result of the patch query
-
+      console.log('Patch result:', result);
       return res.status(200).json({ message: "User details updated successfully", data: result });
     } else {
       const result = await client.create({
         _type: "userdetails",
+        emailid,
         firstname,
         lastname,
         mobilenumber,
@@ -60,12 +61,11 @@ export default async function handler(req, res) {
         country,
       });
 
-      console.log('Create result:', result); // Log the result of the create query
-
+      console.log('Create result:', result);
       return res.status(200).json({ message: "User details saved successfully", data: result });
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "Failed to save user details", error: error.message });
-  }
+    return res.status(500).json({ message: "Failed to save user details", error: error.message });
+  }
 };

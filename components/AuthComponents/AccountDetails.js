@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
+import { useSession } from "next-auth/react";
 
 export default function AccountDetails() {
+  const { data: session, status } = useSession();
   const [formData, setFormData] = useState({
     userprofilepic: "",
     firstname: "",
     lastname: "",
     mobilenumber: "",
-    emailid: "",
+    emailid: session?.user.email || "",
+    alternatemailid: session?.user.email || "",
     streetaddress: "",
     zipcode: "",
     city: "",
@@ -25,7 +28,6 @@ export default function AccountDetails() {
       [name]: value,
     });
   };
-
 
   const validateForm = () => {
     const requiredFields = [
@@ -48,7 +50,6 @@ export default function AccountDetails() {
   };
 
   const handleSaveDetails = async (e) => {
-
     e.preventDefault();
 
     if (!validateForm()) {
@@ -56,50 +57,63 @@ export default function AccountDetails() {
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
+
+      const dataToSend = { ...formData, emailid: session?.user.email };
+
       const response = await fetch("./api/saveAccountDetails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (response.ok) {
         console.log("User details saved successfully");
         toast.success("User details saved successfully");
         setFormData({
+          ...formData,
           firstname: "",
           lastname: "",
           mobilenumber: "",
-          emailid: "",
+          alternatemailid: "",
           streetaddress: "",
           zipcode: "",
           city: "",
           state: "",
-          country: ""
-        })
-
+          country: "",
+        });
       } else {
         console.error("Failed to save user details");
-        toast.error("Failed to save user details");
+        toast.error("User Already exists");
       }
     } catch (error) {
       console.error("Error saving user details:", error);
       toast.error("Failed to save user details");
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (session?.user.email) {
+      setFormData({
+        ...formData,
+        emailid: session.user.email,
+        alternatemailid: session.user.email,
+      });
+    }
+  }, [session]);
 
   return (
     <div className="md:my-[8vh]  font-sans w-full md:w-[55vw] border-gray-100 shadow-xl border-[1px] flex ">
       <div className="w-full px-[8vh]  mx-auto h-[60vh] overflow-y-scroll ">
         <div className="my-[8vh]">
           <h2 className="text-[3vh] mb-[3vh] font-semibold">Account Details</h2>
-          <div >
+          <div>
             <input
               type="text"
               name="firstname"
@@ -136,11 +150,11 @@ export default function AccountDetails() {
           <div>
             <input
               type="email"
-              name="emailid"
-              value={formData.emailid}
+              name="alternatemailid"
+              value={formData.alternatemailid || session?.user.email || ""}
               onChange={handleInputChange}
               className="bg-gray-100 w-full p-[1vh] rounded-lg border-2 border-gray-300 my-[1vh]"
-              placeholder="Alternate Email (Optional)"
+              placeholder="Alternate Email"
             />
           </div>
         </div>
@@ -204,22 +218,19 @@ export default function AccountDetails() {
             />
           </div>
 
-          
-           <button
+          <button
             onClick={handleSaveDetails}
             disabled={loading} // Disable the button while loading
             className="savebtn bg-purple-700 w-[12vh] flex flex-row justify-center items-center font-semibold text-white rounded-lg text-[2.5vh]  py-[1.2vh] my-[1vh]"
           >
             {loading ? (
               <div className="flex flex-row ">
-                <CircularProgress size={24} color="inherit" /> 
-
+                <CircularProgress size={24} color="inherit" />
               </div>
             ) : (
               "Save"
             )}
           </button>
-
         </div>
       </div>
     </div>
