@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useStateContext } from "../../context/StateContext";
+import MakePayment from "./MakePayment";
+
 
 export default function OrderDetails() {
   const { data: session, status } = useSession();
@@ -116,6 +118,7 @@ export default function OrderDetails() {
         Total Price: Rs.{totalPrice}
       </p>
 
+      <MakePayment/>
     </div>
   );
 }

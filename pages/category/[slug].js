@@ -8,10 +8,10 @@ export default function CategoryProduct({ products, category }) {
   return (
     <>
       <div className="w-[90vw] mx-auto p-[2vh]">
-        <h2 className="text-[3vh] font-semibold text-center my-[3vh]">
+        <h2 className="text-[3vh] font-semibold text-center mt-[12vh] my-[3vh]">
           {category.Title}
         </h2>
-        
+
         {/* Displaying products */}
 
         <div className="products-container  flex flex-row flex-wrap justify-center gap-[3vh]">
