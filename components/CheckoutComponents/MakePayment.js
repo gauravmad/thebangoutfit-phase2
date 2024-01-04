@@ -8,14 +8,12 @@ const MakePayment = () => {
 
   const makePayment = async () => {
     setLoading(true);
-    //console.log("here...");
     const res = await initializeRazorpay();
     if (!res) {
       alert("Razorpay SDK Failed to load");
       setLoading(false);
       return;
     }
-    // Make API call to the serverless API
     const data = await fetch("/api/razorpay", {
       method: "POST",
       headers: {
@@ -25,7 +23,7 @@ const MakePayment = () => {
         taxAmt: totalPrice,
       }),
     }).then((t) => t.json());
-    //console.log(data);
+  
     var options = {
       key: process.env.RAZORPAY_KEY,
       name: "The Bang Outfit",
@@ -38,18 +36,22 @@ const MakePayment = () => {
       handler: function (response) {
         alert("Razorpay Response: " + response.razorpay_payment_id);
       },
-      prefill: {
-        name: "gaurav madan",
-        email: "gauravmadan2004@gmail.com",
-        contact: "9689675896",
-      },
+      // prefill: {
+      //   name: "gaurav madan",
+      //   email: "gauravmadan2004@gmail.com",
+      //   contact: "9689675896",
+      // },
+      theme:{
+        color:'#541675'
+      }
     };
-
+  
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-
+  
     setLoading(false);
   };
+  
 
   const initializeRazorpay = () => {
     return new Promise((resolve) => {

@@ -159,7 +159,7 @@ export default function Navbar() {
 
               <div
                 className={`absolute z-[50] signHover w-[42vw] top-[8vh] -right-[5vh] md:top-[8vh] md:w-[14vw] md:-right-[12vh] shadow-2xl bg-white bottom-[0vh] ${
-                  showSignInButton ? 'shadow-black' : 'hidden'
+                  showSignInButton ? "shadow-black" : "hidden"
                 }`}
                 onMouseEnter={handleHoverDiv}
                 onMouseLeave={handleLeaveDiv}
@@ -173,7 +173,9 @@ export default function Navbar() {
                     >
                       Sign In
                     </button>
-                    <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">Please Sign In!</h2>
+                    <h2 className="text-center text-[2vh] md:text-[2.5vh] mt-[1vh]">
+                      Please Sign In!
+                    </h2>
                   </div>
                 ) : (
                   <div className="bg-white shadow-2xl mt-[1vh] p-[1vh] md:p-[2vh]">
@@ -186,7 +188,9 @@ export default function Navbar() {
                           className="text-[2.2vh] md:text-[3vh] md:ml-[0.5vh] text-gray-600"
                           icon="fa-solid fa-user"
                         />
-                        <h2 className="text-[2vh] md:text-[2.5vh] ml-[1vh] text-wrap md:ml-[1.5vh]">My Account</h2>
+                        <h2 className="text-[2vh] md:text-[2.5vh] ml-[1vh] text-wrap md:ml-[1.5vh]">
+                          My Account
+                        </h2>
                       </div>
                     </Link>
                     <button
@@ -213,10 +217,7 @@ export default function Navbar() {
               </h1>
             </div>
           </Link>
-
         </div>
-
-
       </div>
 
       <div

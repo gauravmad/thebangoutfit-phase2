@@ -3,8 +3,6 @@ import { client, urlFor } from "../lib/client";
 import { ProductCard } from "../components";
 
 export default function Men({ products }) {
-  
-
   return (
     <div className=" mt-[8vh] w-full mx-auto  flex flex-col ">
       {/* Title Section */}
@@ -17,40 +15,35 @@ export default function Men({ products }) {
       {/* Category Section */}
       <div className="flex flex-col-reverse md:flex-row ">
         <div className="w-full md:w-[30%] border-t-[0.3vh] shadow-sm">
-          
-            <button className="w-full" >
-              <h1 className="text-[3vh] text-center p-[1.5vh] border-b-2 mb-[1vh]">
-                CATEGORIES
-              </h1>
-            </button>
-            
-              <div className="mx-auto">
-                {/* Dropdown content goes here */}
-                <ul className="flex flex-col gap-[2vh] pl-[3vh] text-[2.5vh] text-gray-600  ">
-            {[
-              "T-shirts",
-              "Shirts",
-              "Sweatshirts",
-              "Kurtas",
-              "Jackets",
-              "Sweaters",
-              "Blazers",
-              "Jeans",
-              "Trousers",
-              "Shorts",
-              "Track Pants",
-            ].map((category) => (
-              <li key={category}>
-                <input type="checkbox" />
-                &nbsp;{category}
-              </li>
-            ))}
-          </ul>
-              </div>
-            
-          
+          <button className="w-full">
+            <h1 className="text-[3vh] text-center p-[1.5vh] border-b-2 mb-[1vh]">
+              CATEGORIES
+            </h1>
+          </button>
 
-          
+          <div className="mx-auto">
+            {/* Dropdown content goes here */}
+            <ul className="flex flex-col gap-[2vh] pl-[3vh] text-[2.5vh] text-gray-600  ">
+              {[
+                "T-shirts",
+                "Shirts",
+                "Sweatshirts",
+                "Kurtas",
+                "Jackets",
+                "Sweaters",
+                "Blazers",
+                "Jeans",
+                "Trousers",
+                "Shorts",
+                "Track Pants",
+              ].map((category) => (
+                <li key={category}>
+                  <input type="checkbox" />
+                  &nbsp;{category}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Product Display Section */}

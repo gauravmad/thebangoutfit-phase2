@@ -3,21 +3,30 @@ import Link from "next/link";
 import { urlFor } from "../../lib/client";
 
 export default function ProductCard({ product }) {
+  const discount = () => {
+    const discountPrice =
+      product.cuttedproductprice - product.finalproductprice;
+    const discountPercentage =
+      (discountPrice / product.cuttedproductprice) * 100;
+    return discountPercentage.toFixed(0);
+    places;
+  };
+
   return (
     <div
       key={product._id}
-      className="product-item md:w-[15vw] w-[42vw] shadow-lg "
+      className="product-item md:w-[15vw] w-[42vw] shadow-lg  "
     >
       <Link href={`/productdetail/${product.slug.current}`}>
-        <div className="bg-slate-100">
+        <div>
           <img
             src={urlFor(product.productimage).url()}
             alt={product.productitle}
             className="w-full h-[40vh] "
           />
-          <div className="bg-white text-[#1E9700] font-sans text-center p-[0.8vh]">
-            55% OFF
-          </div>
+          <span className="bg-white  text-[#1E9700] font-sans text-center px-[0.7vh] py-[0.2vh] font-bold text-[2vh] relative bottom-[39vh] left-[20vh] ">
+            {discount()} % OFF
+          </span>
 
           <div className="flex flex-col mx-[1.5vh] py-[1.5vh] ">
             <h3 className=" font-medium text-gray-600  ">
